@@ -2,7 +2,7 @@ import { DATE, UUID, BOOLEAN, UUIDV4, STRING, Model } from 'sequelize';
 import db from '.';
 
 class User extends Model {
-  public id!: number;
+  public id!: string;
 
   public username!: string;
 
