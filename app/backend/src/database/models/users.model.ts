@@ -49,7 +49,7 @@ User.init(
     deletedAt: {
       type: DATE,
       allowNull: true,
-    }
+    },
   },
   {
     underscored: true,
