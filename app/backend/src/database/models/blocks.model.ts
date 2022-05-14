@@ -37,7 +37,7 @@ Block.init(
   {
     underscored: true,
     sequelize: db,
-    modelName: 'blocks',
+    modelName: 'block',
     timestamps: true,
     tableName: 'blocks',
   },
@@ -45,5 +45,7 @@ Block.init(
 
 User.hasMany(Block, { foreignKey: 'userId', as: 'createdBy'});
 Block.belongsTo(User, { foreignKey: 'userId', as: 'createdBy'});
+
+Block.belongsToMany(User, { through: 'Users_Blocks', as: 'participants', foreignKey: 'userId' });
 
 export default Block;

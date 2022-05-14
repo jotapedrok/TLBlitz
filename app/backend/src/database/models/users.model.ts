@@ -1,5 +1,6 @@
 import { DATE, UUID, BOOLEAN, UUIDV4, STRING, Model } from 'sequelize';
 import db from '.';
+import Block from './blocks.model';
 
 class User extends Model {
   public id!: string;
@@ -59,5 +60,7 @@ User.init(
     tableName: 'users',
   },
 );
+
+User.belongsToMany(Block, { through: 'Users_Blocks', as: 'blocks', foreignKey: 'blockId' });
 
 export default User;
