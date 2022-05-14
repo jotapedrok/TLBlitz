@@ -25,7 +25,6 @@ Task.init(
     id: {
       type: UUID,
       defaultValue: UUIDV4,
-      autoIncrement: true,
       primaryKey: true,
       allowNull: false,
     },
