@@ -7,7 +7,7 @@ module.exports = {
         type: Sequelize.UUID,
         allowNull: false,
         references: {
-          model: "user",
+          model: "Users",
           key: "id",
         },
         onDelete: "CASCADE",
@@ -17,7 +17,7 @@ module.exports = {
         type: Sequelize.UUID,
         allowNull: false,
         references: {
-          model: "block",
+          model: "Blocks",
           key: "id",
         },
         onDelete: "CASCADE",

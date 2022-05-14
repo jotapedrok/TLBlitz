@@ -25,7 +25,7 @@ module.exports = {
         type: Sequelize.UUID,
         allowNull: false,
         references: {
-          model: "user",
+          model: "Users",
           key: "id",
           onDelete: "CASCADE",
           onUpdate: "CASCADE",
@@ -35,7 +35,7 @@ module.exports = {
         type: Sequelize.UUID,
         allowNull: false,
         references: {
-          model: "block",
+          model: "Blocks",
           key: "id",
           onDelete: "CASCADE",
           onUpdate: "CASCADE",
@@ -45,7 +45,7 @@ module.exports = {
         type: Sequelize.UUID,
         allowNull: true,
         references: {
-          model: "status",
+          model: "Status",
           key: "id",
           onDelete: "CASCADE",
           onUpdate: "CASCADE",

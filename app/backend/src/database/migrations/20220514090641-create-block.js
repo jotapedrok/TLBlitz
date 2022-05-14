@@ -14,10 +14,10 @@ module.exports = {
         allowNull: false,
       },
       userId: {
-        type: Sequelize.STRING,
+        type: Sequelize.UUID,
         allowNull: false,
         references: {
-          model: "user",
+          model: "Users",
           key: "id",
         },
       },

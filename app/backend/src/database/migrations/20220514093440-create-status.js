@@ -18,20 +18,20 @@ module.exports = {
         allowNull: false,
       },
       userId: {
-        type: Sequelize.STRING,
+        type: Sequelize.UUID,
         allowNull: true,
         references: {
-          model: "user",
+          model: "Users",
           key: "id",
           onDelete: "CASCADE",
           onUpdate: "CASCADE",
         },
       },
       blockId: {
-        type: Sequelize.STRING,
+        type: Sequelize.UUID,
         allowNull: true,
         references: {
-          model: "block",
+          model: "Blocks",
           key: "id",
           onDelete: "CASCADE",
           onUpdate: "CASCADE",
