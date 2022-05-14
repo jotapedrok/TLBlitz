@@ -1,4 +1,4 @@
-import { DATE, UUID, BOOLEAN, UUIDV4, STRING, Model, TEXT } from 'sequelize';
+import { UUID, UUIDV4, STRING, Model, TEXT } from 'sequelize';
 import db from '.';
 import Block from './blocks.model';
 import Status from './status.model';
