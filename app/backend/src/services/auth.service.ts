@@ -1,5 +1,6 @@
 import { config } from 'dotenv';
 import * as jwt from 'jsonwebtoken';
+import * as bcrypt from 'bcryptjs';
 import { IModel } from "../interfaces/IModel.interface";
 import { IAuthService } from "../interfaces/IAuthService.interface";
 import { IUser } from "../interfaces/IUser.interface";
@@ -10,7 +11,7 @@ config();
 export class AuthService implements IAuthService {
   constructor(private userModel: IModel) { }
 
-  private key: string = process.env.JWT_KEY || '';
+  private jwtKey: string = process.env.JWT_KEY || '';
 
   private genToken(payload: IUser): string {
     const configs: jwt.SignOptions = {
@@ -18,15 +19,31 @@ export class AuthService implements IAuthService {
       expiresIn: '3h',
     }
     const { password, ...user } = payload;
-    const token = jwt.sign({ data: user }, this.key, configs);
+    const token = jwt.sign({ data: user }, this.jwtKey, configs);
     return token;
   }
 
-  authentication(payload: IUser): IServiceResponse {
-
+  async authentication(payload: IUser): Promise<IServiceResponse> {
+    const { email, password } = payload;
+    const user = await this.userModel.findOne({ where: { email } });
+    if (!user) {
+      return { error: 'User not found' };
+    }
+    if (!bcrypt.compareSync(password, user.password)) {
+      return { error: 'Invalid Password' };
+    }
+    return { error: false, data: { token: this.genToken(payload) } };
   }
 
-  authorization(token: string): IServiceResponse {
-
+  async authorization(token: string): Promise<IServiceResponse> {
+    try {
+      const payload = jwt.verify(token, this.jwtKey);
+      return { error: false, data: payload }
+    } catch (e: any) {
+      if (e.name === 'TokenExpiredError') {
+        return { error: 'Token Expired' }
+      }
+      return { error: 'Invalid Token' };
+    }
   }
 }

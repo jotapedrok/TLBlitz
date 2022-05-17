@@ -1,8 +1,8 @@
-import { Model } from "sequelize/types";
+import { ModelStatic } from "sequelize/types";
 
 export interface Entity {
   id?: string,
 }
 
-export interface IModel extends Model {
+export interface IModel extends ModelStatic<any> {
 }
