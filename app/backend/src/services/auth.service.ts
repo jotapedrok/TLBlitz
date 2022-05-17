@@ -5,6 +5,7 @@ import { IModel } from "../interfaces/IModel.interface";
 import { IAuthService } from "../interfaces/IAuthService.interface";
 import { IUser } from "../interfaces/IUser.interface";
 import { IServiceResponse } from "../interfaces/IServiceResponse.interface";
+import { IPayloadJwt } from '../interfaces/IPayloadJwt.interface';
 
 config();
 
@@ -37,8 +38,8 @@ export class AuthService implements IAuthService {
 
   async authorization(token: string): Promise<IServiceResponse> {
     try {
-      const payload = jwt.verify(token, this.jwtKey);
-      return { error: false, data: payload }
+      const payload = jwt.verify(token, this.jwtKey) as IPayloadJwt;
+      return { error: false, data: payload.data }
     } catch (e: any) {
       if (e.name === 'TokenExpiredError') {
         return { error: 'Token Expired' }

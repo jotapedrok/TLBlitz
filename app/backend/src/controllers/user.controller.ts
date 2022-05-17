@@ -22,7 +22,7 @@ export default class UserController {
     try {
       const response = await this.loginService.authentication(req.body);
       if (response.error) {
-        const errorCode: number = this.setError(response.error);
+        const errorCode = this.setError(response.error);
         return res.status(errorCode).json({ error: response.error });
       }
       return res.status(202).json(response.data);
