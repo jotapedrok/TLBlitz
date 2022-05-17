@@ -5,6 +5,6 @@ import { IUser } from "./IUser.interface";
 export interface ILoginService {
   userModel: IModel;
   genToken(payload: IUser): string;
-  authorization(payload: IUser): IServiceResponse;
-  authentification(token: string): IServiceResponse;
+  authentication(payload: IUser): IServiceResponse;
+  authorization(token: string): IServiceResponse;
 }

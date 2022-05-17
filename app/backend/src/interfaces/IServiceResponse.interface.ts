@@ -1,4 +1,4 @@
 export interface IServiceResponse {
   data?: any;
-  error: string | boolean;
+  error: string | false;
 }
