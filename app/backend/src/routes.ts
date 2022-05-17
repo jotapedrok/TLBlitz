@@ -15,5 +15,9 @@ routes.post('/blocks');
 routes.post('/blocks/add/:userId');
 routes.put('/blocks/:id');
 
+routes.get('/tasks');
+routes.get('/tasks/:blockId');
+routes.post('/tasks');
+routes.put('/tasks/:id');
 
 export default routes;
