@@ -20,4 +20,8 @@ routes.get('/tasks/:blockId');
 routes.post('/tasks');
 routes.put('/tasks/:id');
 
+routes.get('/status');
+routes.get('/status/:blockId');
+routes.post('/status');
+
 export default routes;
