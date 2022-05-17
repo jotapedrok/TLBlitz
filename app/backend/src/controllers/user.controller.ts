@@ -1,8 +1,8 @@
 import { RequestHandler } from "express";
-import { ILoginService } from "../interfaces/ILoginService.interface";
+import { IAuthService } from "../interfaces/IAuthService.interface";
 
 export default class UserController {
-  constructor(private loginService: ILoginService) { }
+  constructor(private loginService: IAuthService) { }
 
   private setError = (error: string): number => {
     switch (error) {
