@@ -1,5 +1,6 @@
 import * as express from 'express';
 import * as cors from 'cors';
+import routes from './routes';
 
 class App {
   public app: express.Express;
@@ -10,6 +11,7 @@ class App {
   }
 
   private routes(): void {
+    this.app.use('/api', routes);
   }
 
   private config(): void {
@@ -26,7 +28,7 @@ class App {
   }
 
   public start(PORT: string | number): void {
-    this.app.listen(PORT, () => console.log('listen on:', PORT));
+    this.app.listen(PORT, () => console.log('App listen on port:', PORT));
   }
 }
 
