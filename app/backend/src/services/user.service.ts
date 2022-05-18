@@ -1,6 +1,6 @@
 import { IServiceResponse } from "../interfaces/IServiceResponse.interface";
 import { IModel } from "../interfaces/IModel.interface";
-import { IUserService } from "../interfaces/IUserService.interface";
+import { editableFields, IUserService } from "../interfaces/IUserService.interface";
 import { IUser } from "../interfaces/IUser.interface";
 
 export class UserService implements IUserService {
@@ -8,9 +8,7 @@ export class UserService implements IUserService {
 
   async getById(id: string): Promise<IServiceResponse> {
     const user = await this.userModel.findByPk(id, { raw: true });
-    if (!user) {
-      return { error: 'User not found' };
-    }
+    if (!user) return { error: 'User not found' };
     return { error: false, data: user };
   }
 
@@ -25,5 +23,13 @@ export class UserService implements IUserService {
     const created = await this.userModel.create({ ...user }, { raw: true });
     const { password, ...userWithoutPass } = user;
     return { error: false, data: { id: created.id, ...userWithoutPass } };
+  }
+
+  async edit(id: string, payload: editableFields): Promise<IServiceResponse> {
+    const found = await this.userModel.findByPk(id, { raw: true });
+    if (!found) return { error: 'User not found' };
+    const response = await this.userModel.update({ ...payload }, { where: { id } });
+    if (!response[0]) return { error: 'Error on Update' }
+    return { error: false, data: { id } };
   }
 }

@@ -16,7 +16,7 @@ routes.post('/login', validations.login, userController.login);
 routes.get('/users/:id', userController.getById);
 routes.get('/users', userController.getAll);
 routes.post('/users', userController.create);
-routes.put('/users/:id');
+routes.patch('/users/:id', userController.edit);
 
 routes.get('/blocks');
 routes.get('/blocks/:userId');
