@@ -24,8 +24,8 @@ routes.patch('/users/:id', userValidations.update, userController.edit);
 
 routes.get('/blocks/:userId');
 routes.get('/blocks');
-routes.patch('/blocks/add/:userId');
 routes.post('/blocks');
+routes.patch('/blocks/add/:userId/:blockId');
 routes.patch('/blocks/:id');
 
 routes.get('/tasks');

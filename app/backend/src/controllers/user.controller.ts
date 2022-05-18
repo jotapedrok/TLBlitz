@@ -5,7 +5,7 @@ import { IAuthService } from "../interfaces/IAuthService.interface";
 export default class UserController {
   constructor(private authService: IAuthService, private userService: IUserService) { }
 
-  private setError = (error: string): number => {
+  private setError(error: string): number {
     switch (error) {
       case 'User not found':
         return 404
