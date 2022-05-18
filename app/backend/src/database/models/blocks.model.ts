@@ -42,6 +42,6 @@ Block.init(
   },
 );
 
-// Block.belongsToMany(User, { through: 'Users_Blocks', as: 'participants', foreignKey: 'userId' });
+Block.belongsToMany(User, { through: 'Users_Blocks', as: 'participants', foreignKey: 'userId' });
 
 export default Block;
