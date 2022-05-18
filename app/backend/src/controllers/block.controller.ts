@@ -19,7 +19,20 @@ export class BlockController {
         const errorCode = this.setError(response.error);
         return res.status(errorCode).json({ error: response.error });
       }
-      return res.status(202).json(response.data);
+      return res.status(200).json(response.data);
+    } catch (e) {
+      next(e);
+    }
+  };
+
+  getAll: RequestHandler = async (req, res, next) => {
+    try {
+      const response = await this.blockService.getAll();
+      if (response.error) {
+        const errorCode = this.setError(response.error);
+        return res.status(errorCode).json({ error: response.error });
+      }
+      return res.status(200).json(response.data);
     } catch (e) {
       next(e);
     }
