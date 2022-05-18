@@ -22,11 +22,11 @@ routes.get('/users', userController.getAll);
 routes.post('/users', userValidations.create, userController.create);
 routes.patch('/users/:id', userValidations.update, userController.edit);
 
-routes.get('/blocks');
 routes.get('/blocks/:userId');
+routes.get('/blocks');
+routes.patch('/blocks/add/:userId');
 routes.post('/blocks');
-routes.post('/blocks/add/:userId');
-routes.put('/blocks/:id');
+routes.patch('/blocks/:id');
 
 routes.get('/tasks');
 routes.get('/tasks/:blockId');
