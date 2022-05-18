@@ -12,4 +12,9 @@ export class UserService implements IUserService {
     }
     return { error: false, data: user };
   }
+
+  async getAll(): Promise<IServiceResponse> {
+    const users = await this.userModel.findAll({ raw: true });
+    return { error: false, data: users };
+  }
 }

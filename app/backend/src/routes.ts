@@ -3,16 +3,18 @@ import UserController from './controllers/user.controller';
 import User from './database/models/users.model';
 import validations from './middlewares/validation.middleware';
 import { AuthService } from './services/auth.service';
+import { UserService } from './services/user.service';
 
 const authService = new AuthService(User);
-const userController = new UserController(authService);
+const userService = new UserService(User);
+const userController = new UserController(authService, userService);
 
 const routes = Router();
 
 routes.post('/login', validations.login, userController.login);
 
-routes.get('/users/:id');
-routes.get('/users');
+routes.get('/users/:id', userController.getById);
+routes.get('/users', userController.getAll);
 routes.post('/users');
 routes.put('/users/:id');
 
