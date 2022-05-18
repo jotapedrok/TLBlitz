@@ -1,7 +1,8 @@
 import { Router } from 'express';
 import UserController from './controllers/user.controller';
 import User from './database/models/users.model';
-import validations from './middlewares/validation.middleware';
+import FieldsValidation from './middlewares/FieldsValidation';
+import { LoginValidation } from './middlewares/LoginValidation.middleware';
 import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';
 
@@ -9,9 +10,11 @@ const authService = new AuthService(User);
 const userService = new UserService(User);
 const userController = new UserController(authService, userService);
 
+const validationLogin = new LoginValidation(FieldsValidation);
+
 const routes = Router();
 
-routes.post('/login', validations.login, userController.login);
+routes.post('/login', validationLogin.login, userController.login);
 
 routes.get('/users/:id', userController.getById);
 routes.get('/users', userController.getAll);
