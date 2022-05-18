@@ -23,4 +23,16 @@ export class UserValidation {
       next(e);
     }
   };
+
+  update: RequestHandler = (req, res, next) => {
+    try {
+      const { email, username, password } = req.body;
+      if (!email && !username && !password) {
+        return res.status(400).json({ error: 'Invalid Fields' });
+      }
+      next();
+    } catch (e) {
+      next(e);
+    }
+  }
 }

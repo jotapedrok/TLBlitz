@@ -14,8 +14,9 @@ export default class UserController {
       case 'Token Expired':
         return 401
       case 'User already exist':
-      case 'Error on Update':
         return 409
+      case 'Error on Update':
+        return 400
       default:
         return 500
     }

@@ -20,7 +20,7 @@ routes.post('/login', loginValidations.login, userController.login);
 routes.get('/users/:id', userController.getById);
 routes.get('/users', userController.getAll);
 routes.post('/users', userValidations.create, userController.create);
-routes.patch('/users/:id', userController.edit);
+routes.patch('/users/:id', userValidations.update, userController.edit);
 
 routes.get('/blocks');
 routes.get('/blocks/:userId');
