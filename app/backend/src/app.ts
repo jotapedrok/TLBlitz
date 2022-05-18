@@ -1,6 +1,7 @@
 import * as express from 'express';
 import * as cors from 'cors';
 import routes from './routes';
+import errMiddleware from './middlewares/err.middleware';
 
 class App {
   public app: express.Express;
@@ -8,10 +9,15 @@ class App {
     this.app = express();
     this.config();
     this.routes();
+    this.err();
   }
 
   private routes(): void {
     this.app.use('/api', routes);
+  }
+
+  private err(): void {
+    this.app.use(errMiddleware.index);
   }
 
   private config(): void {
