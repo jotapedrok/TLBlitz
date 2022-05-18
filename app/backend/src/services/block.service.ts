@@ -11,5 +11,10 @@ export class BlockService implements IBlockService {
       return { error: 'No one block was found', data: [] };
     }
     return { error: false, data: blocks };
+  };
+
+  async getAll(): Promise<IServiceResponse> {
+    const blocks = this.blockModel.findAll();
+    return { error: false, data: blocks };
   }
 }
