@@ -1,4 +1,3 @@
-import { IModel } from "./IModel.interface";
 import { IServiceResponse } from "./IServiceResponse.interface";
 import { IUser } from "./IUser.interface";
 
