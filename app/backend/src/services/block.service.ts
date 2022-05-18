@@ -38,7 +38,7 @@ export class BlockService implements IBlockService {
     if (!block) return { error: 'Block not found' };
     const user = await this.userModel.findByPk(userId);
     if (!user) return { error: 'User not found' };
-    block.setParticipants(userId);
+    block.addUser(userId);
     return { error: false, data: block };
   };
 

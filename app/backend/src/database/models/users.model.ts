@@ -55,15 +55,16 @@ User.init(
   {
     underscored: false,
     sequelize: db,
-    modelName: 'user',
+    modelName: 'User',
     timestamps: true,
     tableName: 'Users',
   },
 );
 
-User.hasMany(Block, { foreignKey: 'userId', as: 'createdBy' });
-Block.belongsTo(User, { foreignKey: 'userId', as: 'createdBy' });
+User.belongsToMany(Block, { through: 'Users_Blocks', as: 'blocks', foreignKey: 'user_id' });
 
-User.belongsToMany(Block, { through: 'Users_Blocks', as: 'blocks', foreignKey: 'blockId' });
+User.hasMany(Block, { foreignKey: 'createdy_by', as: 'created_blocks' });
+Block.belongsTo(User, { foreignKey: 'created_by', as: 'createdBy' });
+
 
 export default User;

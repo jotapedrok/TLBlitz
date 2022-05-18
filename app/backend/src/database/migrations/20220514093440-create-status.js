@@ -17,7 +17,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
-      userId: {
+      created_by: {
         type: Sequelize.UUID,
         allowNull: true,
         references: {
@@ -27,7 +27,7 @@ module.exports = {
           onUpdate: "CASCADE",
         },
       },
-      blockId: {
+      block_id: {
         type: Sequelize.UUID,
         allowNull: true,
         references: {

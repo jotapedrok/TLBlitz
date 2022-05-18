@@ -21,7 +21,7 @@ module.exports = {
         type: Sequelize.TEXT,
         allowNull: true,
       },
-      userId: {
+      created_by: {
         type: Sequelize.UUID,
         allowNull: false,
         references: {
@@ -31,7 +31,7 @@ module.exports = {
           onUpdate: "CASCADE",
         },
       },
-      blockId: {
+      block_id: {
         type: Sequelize.UUID,
         allowNull: false,
         references: {
@@ -41,7 +41,7 @@ module.exports = {
           onUpdate: "CASCADE",
         },
       },
-      statusId: {
+      status_id: {
         type: Sequelize.UUID,
         allowNull: true,
         references: {
@@ -51,12 +51,12 @@ module.exports = {
           onUpdate: "CASCADE",
         },
       },
-      createdAt: {
+      created_at: {
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: Sequelize.NOW,
       },
-      updatedAt: {
+      updated_at: {
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: Sequelize.NOW,
