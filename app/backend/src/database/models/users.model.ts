@@ -47,24 +47,21 @@ User.init(
       allowNull: false,
       defaultValue: false,
     },
-    deletedAt: {
+    deleted_at: {
       type: DATE,
       allowNull: true,
     }
   },
   {
-    underscored: false,
+    underscored: true,
     sequelize: db,
-    modelName: 'User',
+    modelName: 'user',
     timestamps: true,
     tableName: 'Users',
   },
 );
 
-User.belongsToMany(Block, { through: 'Users_Blocks', as: 'blocks', foreignKey: 'user_id' });
-
-User.hasMany(Block, { foreignKey: 'createdy_by', as: 'created_blocks' });
-Block.belongsTo(User, { foreignKey: 'created_by', as: 'createdBy' });
-
+User.hasMany(Block, { foreignKey: 'created_by', as: 'created_blocks' });
+Block.belongsTo(User, { foreignKey: 'created_by', as: 'teste' });
 
 export default User;

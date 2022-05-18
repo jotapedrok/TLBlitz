@@ -25,7 +25,7 @@ module.exports = {
       },
       thumbnail: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       created_at: {
         allowNull: false,

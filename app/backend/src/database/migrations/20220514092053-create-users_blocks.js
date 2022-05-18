@@ -26,6 +26,7 @@ module.exports = {
       access: {
         type: Sequelize.STRING,
         allowNull: false,
+        defaultValue: 'admin',
       },
       removed: {
         type: Sequelize.BOOLEAN,

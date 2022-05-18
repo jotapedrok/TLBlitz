@@ -24,7 +24,7 @@ Block.init(
       type: STRING(100),
       allowNull: false,
     },
-    userId: {
+    createdBy: {
       type: STRING(50),
       allowNull: false,
     },
@@ -38,7 +38,7 @@ Block.init(
     sequelize: db,
     modelName: 'Block',
     timestamps: true,
-    tableName: 'blocks',
+    tableName: 'Blocks',
   },
 );
 

@@ -25,7 +25,7 @@ export class BlockController {
     }
   };
 
-  getAll: RequestHandler = async (req, res, next) => {
+  getAll: RequestHandler = async (_req, res, next) => {
     try {
       const response = await this.blockService.getAll();
       if (response.error) {

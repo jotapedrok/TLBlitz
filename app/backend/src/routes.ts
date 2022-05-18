@@ -3,6 +3,7 @@ import { BlockController } from './controllers/block.controller';
 import UserController from './controllers/user.controller';
 import Block from './database/models/blocks.model';
 import User from './database/models/users.model';
+import UserBlocks from './database/models/usersBlocks.model';
 import FieldsValidation from './middlewares/FieldsValidation';
 import { LoginValidation } from './middlewares/LoginValidation.middleware';
 import { UserValidation } from './middlewares/UserValidation.middleware';
@@ -12,7 +13,7 @@ import { UserService } from './services/user.service';
 
 const authService = new AuthService(User);
 const userService = new UserService(User);
-const blockService = new BlockService(Block, User);
+const blockService = new BlockService(Block, User, UserBlocks);
 
 const userController = new UserController(authService, userService);
 const blockController = new BlockController(blockService);

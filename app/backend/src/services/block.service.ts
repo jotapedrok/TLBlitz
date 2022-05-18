@@ -4,32 +4,25 @@ import { IServiceResponse } from "../interfaces/IServiceResponse.interface";
 import { IBlock } from "../interfaces/IBlock.interface";
 
 export class BlockService implements IBlockService {
-  constructor(private blockModel: IModel, private userModel: IModel) { }
+  constructor(private blockModel: IModel, private userModel: IModel, private usersBlocksModel: IModel) { }
 
   async getAllByUserId(userId: string): Promise<IServiceResponse> {
-    const user = this.userModel.findByPk(userId);
+    const user = await this.userModel.findByPk(userId);
     if (!user) return { error: 'User not found' };
-    const blocks = this.blockModel.findOne({ where: { createdBy: userId }, raw: true });
+    const blocks = await this.blockModel.findOne({ where: { createdBy: userId }, raw: true });
     if (!blocks) return { error: 'No one block was found', data: [] };
     return { error: false, data: blocks };
   };
 
   async getAll(): Promise<IServiceResponse> {
-    const blocks = this.blockModel.findAll({
-      include: [
-        {
-          model: this.userModel,
-          as: 'participants',
-          through: { attributes: [] },
-          attributes: ['id'],
-        }
-      ]
-    });
+    const blocks = await this.blockModel.findAll();
     return { error: false, data: blocks };
   };
 
   async create(block: IBlock): Promise<IServiceResponse> {
     const created = await this.blockModel.create({ ...block });
+    const associate = { userId: block.createdBy, blockId: created.id, access: 'owner' };
+    await this.usersBlocksModel.create(associate);
     return { error: false, data: { id: created.id, ...block } };
   };
 
