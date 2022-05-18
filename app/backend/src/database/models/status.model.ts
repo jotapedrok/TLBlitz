@@ -49,10 +49,10 @@ Status.init(
   },
 );
 
-User.hasMany(Status, { foreignKey: 'userId', as: 'createdBy'});
-Status.belongsTo(User, { foreignKey: 'userId', as: 'createdBy'});
+User.hasMany(Status, { foreignKey: 'userId', as: 'createdBy' });
+Status.belongsTo(User, { foreignKey: 'userId', as: 'createdBy' });
 
-Block.hasMany(Status, { foreignKey: 'blockId', as: 'belongsTo'});
-Status.belongsTo(Block, { foreignKey: 'blockId', as: 'belongsTo'});
+Block.hasMany(Status, { foreignKey: 'blockId', as: 'belongsTo' });
+Status.belongsTo(Block, { foreignKey: 'blockId', as: 'belongsTo' });
 
 export default Status;

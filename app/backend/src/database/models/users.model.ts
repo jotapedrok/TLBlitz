@@ -49,16 +49,19 @@ User.init(
     deletedAt: {
       type: DATE,
       allowNull: true,
-    },
+    }
   },
   {
-    underscored: true,
+    underscored: false,
     sequelize: db,
     modelName: 'user',
     timestamps: true,
-    tableName: 'users',
+    tableName: 'Users',
   },
 );
+
+User.hasMany(Block, { foreignKey: 'userId', as: 'createdBy' });
+Block.belongsTo(User, { foreignKey: 'userId', as: 'createdBy' });
 
 User.belongsToMany(Block, { through: 'Users_Blocks', as: 'blocks', foreignKey: 'blockId' });
 

@@ -1,4 +1,4 @@
-import { config } from 'dotenv';
+import 'dotenv/config';
 import * as jwt from 'jsonwebtoken';
 import * as bcrypt from 'bcryptjs';
 import { IModel } from "../interfaces/IModel.interface";
@@ -7,33 +7,32 @@ import { IUser } from "../interfaces/IUser.interface";
 import { IServiceResponse } from "../interfaces/IServiceResponse.interface";
 import { IPayloadJwt } from '../interfaces/IPayloadJwt.interface';
 
-config();
-
 export class AuthService implements IAuthService {
-  constructor(private userModel: IModel) { }
+  private jwtKey: string;
+  constructor(private userModel: IModel) {
+    this.jwtKey = process.env.JWT_KEY || '';
+  }
 
-  private jwtKey: string = process.env.JWT_KEY || '';
-
-  private genToken(payload: IUser): string {
+  private genToken(payload: IUser): string | any {
     const configs: jwt.SignOptions = {
-      algorithm: 'RS256',
+      algorithm: 'HS256',
       expiresIn: '3h',
     }
     const { password, ...user } = payload;
-    const token = jwt.sign({ data: user }, this.jwtKey, configs);
+    const token = jwt.sign({ user }, this.jwtKey, configs);
     return token;
   }
 
   async authentication(payload: IUser): Promise<IServiceResponse> {
     const { email, password } = payload;
-    const user = await this.userModel.findOne({ where: { email } });
+    const user = await this.userModel.findOne({ where: { email }, raw: true });
     if (!user) {
       return { error: 'User not found' };
     }
-    if (!bcrypt.compareSync(password, user.password)) {
+    if (!bcrypt.compare(password, user.password)) {
       return { error: 'Invalid Password' };
     }
-    return { error: false, data: { token: this.genToken(payload) } };
+    return { error: false, data: { token: this.genToken(user) } };
   }
 
   async authorization(token: string): Promise<IServiceResponse> {

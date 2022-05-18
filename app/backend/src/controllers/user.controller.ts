@@ -2,7 +2,7 @@ import { RequestHandler } from "express";
 import { IAuthService } from "../interfaces/IAuthService.interface";
 
 export default class UserController {
-  constructor(private loginService: IAuthService) { }
+  constructor(private authService: IAuthService) { }
 
   private setError = (error: string): number => {
     switch (error) {
@@ -20,7 +20,7 @@ export default class UserController {
 
   login: RequestHandler = async (req, res, next) => {
     try {
-      const response = await this.loginService.authentication(req.body);
+      const response = await this.authService.authentication(req.body);
       if (response.error) {
         const errorCode = this.setError(response.error);
         return res.status(errorCode).json({ error: response.error });

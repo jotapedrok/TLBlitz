@@ -2,11 +2,11 @@
   "name": "tlblitz_backend",
   "version": "1.0.0",
   "description": "",
-  "main": "/build/server",
+  "main": "./build/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node .",
-    "dev": "tsnd --transpile-only -respawn --ignore-watch node_modules src/server.ts",
+    "dev": "tsnd --transpile-only --respawn --ignore-watch node_modules src/server.ts",
     "build": "/bin/sh tsc_eval.sh"
   },
   "author": "Jota Aguiar",

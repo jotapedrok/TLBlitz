@@ -1,8 +1,14 @@
 import { Router } from 'express';
+import UserController from './controllers/user.controller';
+import User from './database/models/users.model';
+import { AuthService } from './services/auth.service';
+
+const authService = new AuthService(User);
+const userController = new UserController(authService);
 
 const routes = Router();
 
-routes.post('/login');
+routes.post('/login', userController.login);
 
 routes.get('/users/:id');
 routes.get('/users');
