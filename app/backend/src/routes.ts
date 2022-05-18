@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import UserController from './controllers/user.controller';
 import User from './database/models/users.model';
+import validations from './middlewares/validation.middleware';
 import { AuthService } from './services/auth.service';
 
 const authService = new AuthService(User);
@@ -8,7 +9,7 @@ const userController = new UserController(authService);
 
 const routes = Router();
 
-routes.post('/login', userController.login);
+routes.post('/login', validations.login, userController.login);
 
 routes.get('/users/:id');
 routes.get('/users');
