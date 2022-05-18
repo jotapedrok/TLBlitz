@@ -13,6 +13,8 @@ export default class UserController {
       case 'Ivalid Token':
       case 'Token Expired':
         return 401
+      case 'User already exist':
+        return 409
       default:
         return 500
     }
@@ -45,7 +47,7 @@ export default class UserController {
     }
   }
 
-  getAll: RequestHandler = async (req, res, next) => {
+  getAll: RequestHandler = async (_req, res, next) => {
     try {
       const response = await this.userService.getAll();
       if (response.error) {
@@ -53,6 +55,19 @@ export default class UserController {
         return res.status(errorCode).json({ error: response.error });
       }
       return res.status(200).json(response.data);
+    } catch (e) {
+      next(e);
+    }
+  }
+
+  create: RequestHandler = async (req, res, next) => {
+    try {
+      const response = await this.userService.create(req.body);
+      if (response.error) {
+        const errorCode = this.setError(response.error);
+        return res.status(errorCode).json({ error: response.error });
+      }
+      return res.status(201).json(response.data);
     } catch (e) {
       next(e);
     }

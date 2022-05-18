@@ -45,6 +45,7 @@ User.init(
     deleted: {
       type: BOOLEAN,
       allowNull: false,
+      defaultValue: false,
     },
     deletedAt: {
       type: DATE,
