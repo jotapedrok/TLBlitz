@@ -9,14 +9,10 @@ export class UserValidation {
       const testEmail = this.fieldsValidations.email(email);
       const testPassword = this.fieldsValidations.password(password);
       const testUsername = this.fieldsValidations.username(username);
-      if (!testEmail.test) {
-        return res.status(400).json({ error: testEmail.message });
-      }
-      if (!testPassword.test) {
-        return res.status(400).json({ error: testPassword.message });
-      }
-      if (!testUsername.test) {
-        return res.status(400).json({ error: testUsername.message });
+      const testes = [testEmail, testPassword, testUsername];
+      const restult = testes.find((teste) => !teste.test);
+      if (restult) {
+        return res.status(400).json({ error: restult.message });
       }
       next();
     } catch (e) {

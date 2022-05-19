@@ -10,14 +10,10 @@ export class BlockValidation {
       const testName = this.fieldsValidations.name(name);
       const testCreatedBy = this.fieldsValidations.createdBy(createdBy);
       const testThumbnail = this.fieldsValidations.thumbnail(thumbnail);
-      if (!testName.test) {
-        return res.status(400).json({ error: testName.message });
-      }
-      if (!testCreatedBy.test) {
-        return res.status(400).json({ error: testCreatedBy.message });
-      }
-      if (!testThumbnail.test) {
-        return res.status(400).json({ error: testThumbnail.message });
+      const testes = [testName, testCreatedBy, testThumbnail];
+      const restult = testes.find((teste) => !teste.test);
+      if (restult) {
+        return res.status(400).json({ error: restult.message });
       }
       next();
     } catch (e) {

@@ -13,23 +13,17 @@ export class TaskValidation {
       const testCreatedBy = this.fieldsValidations.createdBy(createdBy);
       const testStatusId = this.fieldsValidations.statusId(statusId);
       const testBlockId = this.fieldsValidations.blockId(blockId);
-      if (!testTitle.test) {
-        return res.status(400).json({ error: testTitle.message });
-      }
-      if (!testContent.test) {
-        return res.status(400).json({ error: testContent.message });
-      }
-      if (!testDescription.test) {
-        return res.status(400).json({ error: testDescription.message });
-      }
-      if (!testCreatedBy.test) {
-        return res.status(400).json({ error: testCreatedBy.message });
-      }
-      if (!testStatusId.test) {
-        return res.status(400).json({ error: testStatusId.message });
-      }
-      if (!testBlockId.test) {
-        return res.status(400).json({ error: testBlockId.message });
+      const testes = [
+        testTitle,
+        testContent,
+        testDescription,
+        testCreatedBy,
+        testStatusId,
+        testBlockId,
+      ];
+      const restult = testes.find((teste) => !teste.test);
+      if (restult) {
+        return res.status(400).json({ error: restult.message });
       }
       next();
     } catch (e) {

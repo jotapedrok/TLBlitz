@@ -12,9 +12,10 @@ export class StatusValidation {
       const testCreatedBy = this.fieldsValidations.createdBy(createdBy);
       const testBlockId = this.fieldsValidations.blockId(blockId);
       const testes = [testTitle, testPriority, testCreatedBy, testBlockId];
-      testes.forEach((teste) => {
-        if (!teste.test) return res.status(400).json({ error: teste.message });
-      });
+      const restult = testes.find((teste) => !teste.test);
+      if (restult) {
+        return res.status(400).json({ error: restult.message });
+      }
       next();
     } catch (e) {
       next(e);
