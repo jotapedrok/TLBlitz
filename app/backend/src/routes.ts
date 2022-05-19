@@ -38,33 +38,38 @@ const taskValidations = new TaskValidation(FieldsValidation);
 const statusValidations = new StatusValidation(FieldsValidation);
 
 const routes = Router();
+const userRoutes = Router();
+const adminRoutes = Router();
 
 routes.post('/login', loginValidations.login, userController.login);
-
-routes.get('/users/:id', userController.getById);
-routes.get('/users', userController.getAll);
 routes.post('/users', userValidations.create, userController.create);
-routes.patch('/users/:id', userValidations.update, userController.edit);
 
-routes.get('/blocks/:userId', blockController.getAllByUserId);
-routes.get('/blocks', blockController.getAll);
-routes.post('/blocks/add-user/:userId/:blockId', blockValidations.addUser, blockController.addUser);
-routes.post('/blocks', blockValidations.create, blockController.create);
-routes.patch('/blocks/edit-user/:userId/:blockId', blockValidations.editUser, blockController.editUser);
-routes.delete('/blocks/delete-user/:userId/:blockId', blockController.deleteUser);
-routes.patch('/blocks/:id', blockValidations.edit, blockController.edit);
+routes.use(adminRoutes);
+routes.use(userRoutes);
 
-routes.get('/tasks', taskController.getAll);
-routes.get('/tasks/:userId', taskController.getAllByUserId);
-routes.get('/tasks/:blockId', taskController.getAllByBlockId);
-routes.post('/tasks', taskValidations.create, taskController.create);
-routes.patch('/tasks/:id', taskValidations.edit, taskController.edit);
-routes.patch('/tasks/status/:id', taskValidations.changeStatus, taskController.changeStatus);
+userRoutes.get('/users/:id', userController.getById);
+adminRoutes.get('/users', userController.getAll);
+userRoutes.patch('/users/:id', userValidations.update, userController.edit);
+
+userRoutes.get('/blocks/:userId', blockController.getAllByUserId);
+adminRoutes.get('/blocks', blockController.getAll);
+userRoutes.post('/blocks/add-user/:userId/:blockId', blockValidations.addUser, blockController.addUser);
+userRoutes.post('/blocks', blockValidations.create, blockController.create);
+userRoutes.patch('/blocks/edit-user/:userId/:blockId', blockValidations.editUser, blockController.editUser);
+userRoutes.delete('/blocks/delete-user/:userId/:blockId', blockController.deleteUser);
+userRoutes.patch('/blocks/:id', blockValidations.edit, blockController.edit);
+
+adminRoutes.get('/tasks', taskController.getAll);
+adminRoutes.get('/tasks/:userId', taskController.getAllByUserId);
+userRoutes.get('/tasks/:blockId', taskController.getAllByBlockId);
+userRoutes.post('/tasks', taskValidations.create, taskController.create);
+userRoutes.patch('/tasks/:id', taskValidations.edit, taskController.edit);
+userRoutes.patch('/tasks/status/:id', taskValidations.changeStatus, taskController.changeStatus);
 
 
-routes.get('/status', statusController.getAll);
-routes.get('/status/:blockId', statusController.getAllByBlockId);
-routes.post('/status', statusValidations.create, statusController.create);
-routes.delete('/status/:id', statusController.delete);
+userRoutes.get('/status', statusController.getAll);
+userRoutes.get('/status/:blockId', statusController.getAllByBlockId);
+userRoutes.post('/status', statusValidations.create, statusController.create);
+userRoutes.delete('/status/:id', statusController.delete);
 
 export default routes;
