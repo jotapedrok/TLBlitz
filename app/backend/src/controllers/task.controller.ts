@@ -26,7 +26,13 @@ export class TaskController {
 
   getAllByUserId: RequestHandler = async (req, res, next) => {
     try {
-
+      const { userId } = req.params;
+      const response = await this.taskService.getAllByUserId(userId);
+      if (response.error) {
+        const errorCode = this.setError(response.error);
+        return res.status(errorCode).json({ error: response.error });
+      }
+      return res.status(200).json(response.data);
     } catch (e) {
       next(e);
     }
@@ -34,7 +40,13 @@ export class TaskController {
 
   getAllByBlockId: RequestHandler = async (req, res, next) => {
     try {
-
+      const { blockId } = req.params;
+      const response = await this.taskService.getAllByUserId(blockId);
+      if (response.error) {
+        const errorCode = this.setError(response.error);
+        return res.status(errorCode).json({ error: response.error });
+      }
+      return res.status(200).json(response.data);
     } catch (e) {
       next(e);
     }
