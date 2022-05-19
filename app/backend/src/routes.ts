@@ -4,6 +4,7 @@ import UserController from './controllers/user.controller';
 import Block from './database/models/blocks.model';
 import User from './database/models/users.model';
 import UserBlocks from './database/models/usersBlocks.model';
+import { BlockValidation } from './middlewares/BlockValidation.middleware';
 import FieldsValidation from './middlewares/FieldsValidation';
 import { LoginValidation } from './middlewares/LoginValidation.middleware';
 import { UserValidation } from './middlewares/UserValidation.middleware';
@@ -20,6 +21,7 @@ const blockController = new BlockController(blockService);
 
 const loginValidations = new LoginValidation(FieldsValidation);
 const userValidations = new UserValidation(FieldsValidation);
+const blockValidations = new BlockValidation(FieldsValidation);
 
 const routes = Router();
 
@@ -32,11 +34,11 @@ routes.patch('/users/:id', userValidations.update, userController.edit);
 
 routes.get('/blocks/:userId', blockController.getAllByUserId);
 routes.get('/blocks', blockController.getAll);
-routes.post('/blocks/add/:userId/:blockId', blockController.addUser);
-routes.post('/blocks', blockController.create);
-routes.patch('/blocks/edit/:userId/:blockId', blockController.editUser);
-routes.patch('/blocks/delete/:userId/:blockId', blockController.editUser);
-routes.patch('/blocks/:id', blockController.edit);
+routes.post('/blocks/add/:userId/:blockId', blockValidations.addUser, blockController.addUser);
+routes.post('/blocks', blockValidations.create, blockController.create);
+routes.patch('/blocks/edit/:userId/:blockId', blockValidations.editUser, blockController.editUser);
+routes.patch('/blocks/delete/:userId/:blockId', blockController.deleteUser);
+routes.patch('/blocks/:id', blockValidations.edit, blockController.edit);
 
 routes.get('/tasks');
 routes.get('/tasks/:blockId');

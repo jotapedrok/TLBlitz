@@ -70,20 +70,6 @@ export class BlockController {
     }
   };
 
-  edit: RequestHandler = async (req, res, next) => {
-    try {
-      const { id } = req.params;
-      const response = await this.blockService.edit(id, req.body);
-      if (response.error) {
-        const errorCode = this.setError(response.error);
-        return res.status(errorCode).json({ error: response.error });
-      }
-      return res.status(202).json(response.data);
-    } catch (e) {
-      next(e);
-    }
-  };
-
   editUser: RequestHandler = async (req, res, next) => {
     try {
       const { blockId, userId } = req.params;
@@ -108,6 +94,20 @@ export class BlockController {
         return res.status(errorCode).json({ error: response.error });
       }
       return res.status(204).json(response.data);
+    } catch (e) {
+      next(e);
+    }
+  };
+
+  edit: RequestHandler = async (req, res, next) => {
+    try {
+      const { id } = req.params;
+      const response = await this.blockService.edit(id, req.body);
+      if (response.error) {
+        const errorCode = this.setError(response.error);
+        return res.status(errorCode).json({ error: response.error });
+      }
+      return res.status(202).json(response.data);
     } catch (e) {
       next(e);
     }
