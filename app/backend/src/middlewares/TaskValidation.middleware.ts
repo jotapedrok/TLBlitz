@@ -60,6 +60,11 @@ export class BlockValidation {
 
   changeStatus: RequestHandler = (req, res, next) => {
     try {
+      const { statusId } = req.body;
+      const testStatusId = this.fieldsValidations.statusId(statusId);
+      if (!testStatusId.test) {
+        return res.status(400).json({ error: testStatusId.message });
+      }
       next();
     } catch (e) {
       next(e);
