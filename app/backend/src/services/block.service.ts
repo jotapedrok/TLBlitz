@@ -38,7 +38,7 @@ export class BlockService implements IBlockService {
     if (!block) return { error: 'Block not found' };
     const user = await this.userModel.findByPk(userId);
     if (!user) return { error: 'User not found' };
-    const [nothing, created] = await this.usersBlocksModel.findOrCreate({
+    const [_O, created] = await this.usersBlocksModel.findOrCreate({
       where: {
         userId,
         blockId,
@@ -54,6 +54,23 @@ export class BlockService implements IBlockService {
     return {
       error: false,
       data: { message },
+    };
+  };
+
+  async editUser(blockId: string, userId: string, access: string): Promise<IServiceResponse> {
+    const block = await this.blockModel.findByPk(blockId);
+    if (!block) return { error: 'Block not found' };
+    const user = await this.userModel.findByPk(userId);
+    if (!user) return { error: 'User not found' };
+    await this.usersBlocksModel.update({ access }, {
+      where: {
+        userId,
+        blockId,
+      }
+    });
+    return {
+      error: false,
+      data: { message: `User ${user.username} is chaged as ${access}` },
     };
   };
 
