@@ -26,7 +26,8 @@ export class TaskService implements ITaskService {
   };
 
   create = async (task: ITask): Promise<IServiceResponse> => {
-    return { error: false, data: 'DEFAULT' };
+    const created = await this.taskModel.create({ ...task });
+    return { error: false, data: { id: created.id, ...task } };
   };
 
   edit = async (id: string, payload: editableFields): Promise<IServiceResponse> => {
