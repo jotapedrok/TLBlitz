@@ -26,7 +26,7 @@ export class TaskService implements ITaskService {
   getAllByBlockId = async (blockId: string): Promise<IServiceResponse> => {
     const found = await this.blockModel.findByPk(blockId);
     if (!found) return { error: 'Block not found' };
-    const tasks = await this.taskModel.findAll({ where: { createdBy: blockId } });
+    const tasks = await this.taskModel.findAll({ where: { blockId } });
     return { error: false, data: tasks };
   };
 

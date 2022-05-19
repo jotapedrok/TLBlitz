@@ -11,7 +11,10 @@ export class StatusService implements IStatusService {
   };
 
   getAllByBlockId = async (blockId: string): Promise<IServiceResponse> => {
-
+    const found = await this.blockModel.findByPk(blockId);
+    if (!found) return { error: 'Block not found' };
+    const status = await this.statusModel.findAll({ where: { blockId } });
+    return { error: false, data: status };
   };
 
   create = async (block: IStatus): Promise<IServiceResponse> => {
