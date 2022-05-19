@@ -8,6 +8,7 @@ import Status from './database/models/status.model';
 import Task from './database/models/task.model';
 import User from './database/models/users.model';
 import UserBlocks from './database/models/usersBlocks.model';
+import { Auth } from './middlewares/Auth.middleware';
 import { BlockValidation } from './middlewares/BlockValidation.middleware';
 import FieldsValidation from './middlewares/FieldsValidation';
 import { LoginValidation } from './middlewares/LoginValidation.middleware';
@@ -36,6 +37,7 @@ const userValidations = new UserValidation(FieldsValidation);
 const blockValidations = new BlockValidation(FieldsValidation);
 const taskValidations = new TaskValidation(FieldsValidation);
 const statusValidations = new StatusValidation(FieldsValidation);
+const auth = new Auth('admin', authService);
 
 const routes = Router();
 const userRoutes = Router();
@@ -71,5 +73,7 @@ userRoutes.get('/status', statusController.getAll);
 userRoutes.get('/status/:blockId', statusController.getAllByBlockId);
 userRoutes.post('/status', statusValidations.create, statusController.create);
 userRoutes.delete('/status/:id', statusController.delete);
+
+routes.get('/test', auth.index);
 
 export default routes;

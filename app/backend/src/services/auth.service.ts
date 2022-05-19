@@ -35,10 +35,10 @@ export class AuthService implements IAuthService {
     return { error: false, data: { token: this.genToken(user) } };
   }
 
-  async authorization(token: string): Promise<IServiceResponse> {
+  authorization(token: string): IServiceResponse {
     try {
       const payload = jwt.verify(token, this.jwtKey) as IPayloadJwt;
-      return { error: false, data: payload.data }
+      return { error: false, data: payload.user }
     } catch (e: any) {
       if (e.name === 'TokenExpiredError') {
         return { error: 'Token Expired' }

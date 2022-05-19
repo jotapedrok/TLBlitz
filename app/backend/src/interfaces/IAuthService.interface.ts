@@ -3,5 +3,5 @@ import { IUser } from "./IUser.interface";
 
 export interface IAuthService {
   authentication(payload: IUser): Promise<IServiceResponse>;
-  authorization(token: string): Promise<IServiceResponse>;
+  authorization(token: string): IServiceResponse;
 }

@@ -62,12 +62,12 @@ Task.init(
   },
 );
 
-User.hasMany(Task, { foreignKey: 'userId', as: 'createdBy' });
+User.hasMany(Task, { foreignKey: 'userId', as: 'creator' });
 Block.hasMany(Task, { foreignKey: 'blockId', as: 'block' });
 Status.hasMany(Task, { foreignKey: 'statusId', as: 'status' });
 
-Task.hasMany(User, { foreignKey: 'userId', as: 'createdBy' });
-Task.hasMany(Block, { foreignKey: 'blockId', as: 'block' });
-Task.hasMany(Status, { foreignKey: 'statusId', as: 'status' });
+Task.belongsTo(User, { foreignKey: 'userId', as: 'creator' });
+Task.belongsTo(Block, { foreignKey: 'blockId', as: 'block' });
+Task.belongsTo(Status, { foreignKey: 'statusId', as: 'status' });
 
 export default Task;

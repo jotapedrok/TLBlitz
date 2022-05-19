@@ -1,3 +1,4 @@
+import * as bcrypt from 'bcryptjs';
 import { IServiceResponse } from "../interfaces/IServiceResponse.interface";
 import { IModel } from "../interfaces/IModel.interface";
 import { editableFields, IUserService } from "../interfaces/IUserService.interface";
@@ -20,8 +21,12 @@ export class UserService implements IUserService {
   async create(user: IUser): Promise<IServiceResponse> {
     const found = await this.userModel.findOne({ where: { email: user.email } });
     if (found) return { error: 'User already exist' };
-    const created = await this.userModel.create({ ...user }, { raw: true });
     const { password, ...userWithoutPass } = user;
+    const hash = bcrypt.hashSync(password, 14);
+    const created = await this.userModel.create(
+      { ...userWithoutPass, password: hash },
+      { raw: true },
+    );
     return { error: false, data: { id: created.id, ...userWithoutPass } };
   }
 

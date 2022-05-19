@@ -61,7 +61,7 @@ User.init(
   },
 );
 
-User.hasMany(Block, { foreignKey: 'created_by', as: 'created_blocks' });
-Block.belongsTo(User, { foreignKey: 'created_by', as: 'teste' });
+// User.hasMany(Block, { foreignKey: 'created_by', as: 'created_blocks' });
+// Block.belongsTo(User, { foreignKey: 'created_by', as: 'owner' });
 
 export default User;
