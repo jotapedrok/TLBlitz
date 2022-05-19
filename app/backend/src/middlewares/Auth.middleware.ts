@@ -1,9 +1,9 @@
-import { RequestHandler } from "express";
+import { Request, RequestHandler } from "express";
 import { IAuthService } from "../interfaces/IAuthService.interface";
 
 export class Auth {
   constructor(private role: string, private authService: IAuthService) { };
-  index: RequestHandler = async (req, res, next) => {
+  index: RequestHandler = (req, res, next) => {
     try {
       const { authorization } = req.headers;
       if (!authorization) {
@@ -13,13 +13,35 @@ export class Auth {
       if (response.error) {
         return res.status(401).json({ error: response.error });
       }
-      const { userRole } = response.data;
-      if (userRole !== this.role) {
+      const { role } = response.data;
+      if (role !== this.role || role === 'admin') {
         return res.status(401).json({ error: 'User unauthorized' });
       }
       next();
     } catch (e) {
       next(e);
+    }
+  };
+
+  testId: RequestHandler = (req, res, next) => {
+    try {
+      const { authorization } = req.headers;
+      const { id, userId } = req.params;
+      if (authorization) {
+        const response = this.authService.authorization(authorization);
+        const { id: tokenId, role } = response.data;
+        if (role !== 'admin') {
+          if (id && id !== tokenId) {
+            return res.status(401).json({ error: 'User unauthorized' });
+          }
+          if (userId && userId !== tokenId) {
+            return res.status(401).json({ error: 'User unauthorized' });
+          }
+        }
+      }
+      next();
+    } catch (e) {
+      next(e)
     }
   }
 }
