@@ -11,6 +11,7 @@ import UserBlocks from './database/models/usersBlocks.model';
 import { BlockValidation } from './middlewares/BlockValidation.middleware';
 import FieldsValidation from './middlewares/FieldsValidation';
 import { LoginValidation } from './middlewares/LoginValidation.middleware';
+import { StatusValidation } from './middlewares/StatusValidation.middleware';
 import { TaskValidation } from './middlewares/TaskValidation.middleware';
 import { UserValidation } from './middlewares/UserValidation.middleware';
 import { AuthService } from './services/auth.service';
@@ -34,6 +35,7 @@ const loginValidations = new LoginValidation(FieldsValidation);
 const userValidations = new UserValidation(FieldsValidation);
 const blockValidations = new BlockValidation(FieldsValidation);
 const taskValidations = new TaskValidation(FieldsValidation);
+const statusValidations = new StatusValidation(FieldsValidation);
 
 const routes = Router();
 
@@ -62,7 +64,7 @@ routes.patch('/tasks/status/:id', taskValidations.changeStatus, taskController.c
 
 routes.get('/status', statusController.getAll);
 routes.get('/status/:blockId', statusController.getAllByBlockId);
-routes.post('/status', statusController.create);
+routes.post('/status', statusValidations.create, statusController.create);
 routes.delete('/status/:id', statusController.delete);
 
 export default routes;
