@@ -15,7 +15,14 @@ export class BlockService implements IBlockService {
   };
 
   async getAll(): Promise<IServiceResponse> {
-    const blocks = await this.blockModel.findAll();
+    const blocks = await this.blockModel.findAll({
+      include: {
+        model: this.userModel,
+        as: 'participants',
+        through: { attributes: [] },
+        attributes: ['id', 'username'],
+      }
+    });
     return { error: false, data: blocks };
   };
 
