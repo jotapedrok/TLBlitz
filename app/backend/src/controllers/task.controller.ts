@@ -54,7 +54,12 @@ export class TaskController {
 
   create: RequestHandler = async (req, res, next) => {
     try {
-
+      const response = await this.taskService.create(req.body);
+      if (response.error) {
+        const errorCode = this.setError(response.error);
+        return res.status(errorCode).json({ error: response.error });
+      }
+      return res.status(201).json(response.data);
     } catch (e) {
       next(e);
     }
