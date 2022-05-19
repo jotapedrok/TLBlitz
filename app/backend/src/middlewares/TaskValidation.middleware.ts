@@ -1,7 +1,7 @@
 import { RequestHandler } from "express";
 import { IFieldsValidations } from "../interfaces/IFieldsValidation.interface";
 
-export class BlockValidation {
+export class TaskValidation {
   constructor(private fieldsValidations: IFieldsValidations) { };
 
   create: RequestHandler = (req, res, next) => {

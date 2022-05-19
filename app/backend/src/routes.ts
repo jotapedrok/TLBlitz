@@ -10,6 +10,7 @@ import UserBlocks from './database/models/usersBlocks.model';
 import { BlockValidation } from './middlewares/BlockValidation.middleware';
 import FieldsValidation from './middlewares/FieldsValidation';
 import { LoginValidation } from './middlewares/LoginValidation.middleware';
+import { TaskValidation } from './middlewares/TaskValidation.middleware';
 import { UserValidation } from './middlewares/UserValidation.middleware';
 import { AuthService } from './services/auth.service';
 import { BlockService } from './services/block.service';
@@ -28,6 +29,7 @@ const taskController = new TaskController(taskService);
 const loginValidations = new LoginValidation(FieldsValidation);
 const userValidations = new UserValidation(FieldsValidation);
 const blockValidations = new BlockValidation(FieldsValidation);
+const taskValidations = new TaskValidation(FieldsValidation);
 
 const routes = Router();
 
@@ -49,9 +51,9 @@ routes.patch('/blocks/:id', blockValidations.edit, blockController.edit);
 routes.get('/tasks', taskController.getAll);
 routes.get('/tasks/:userId', taskController.getAllByUserId);
 routes.get('/tasks/:blockId', taskController.getAllByBlockId);
-routes.post('/tasks', taskController.create);
-routes.patch('/tasks/:id', taskController.edit);
-routes.patch('/tasks/status/:id', taskController.changeStatus);
+routes.post('/tasks', taskValidations.create, taskController.create);
+routes.patch('/tasks/:id', taskValidations.edit, taskController.edit);
+routes.patch('/tasks/status/:id', taskValidations.changeStatus, taskController.changeStatus);
 
 
 routes.get('/status');
