@@ -54,7 +54,7 @@ class FieldsValidation implements IFieldsValidations {
   createdBy(createdBy?: string): FieldValidationResponse {
     if (!createdBy || createdBy === '') return { test: false, message: 'CreatedBy is required' };
     if (createdBy.length !== 36) {
-      return { test: false, message: 'CreatedBy should has type UUIDV4' };
+      return { test: false, message: 'CreatedBy should be UUIDV4' };
     }
     return { test: true };
   };
@@ -65,6 +65,46 @@ class FieldsValidation implements IFieldsValidations {
       return { test: false, message: 'Thumbnail needs to be a URL' };
     }
     return { test: true };
+  };
+
+  title(title?: string): FieldValidationResponse {
+    if (!title || title === '') {
+      return { test: false, message: 'Title is required' };
+    }
+    if (title.length < 3) {
+      return { test: false, message: 'Title minimum length is 3 characters' };
+    }
+    return { test: false };
+  };
+
+  content(content?: string): FieldValidationResponse {
+    if (!content || content === '') {
+      return { test: false, message: 'Content is required' };
+    }
+    if (content.length < 3) {
+      return { test: false, message: 'Content minimum length is 3 characters' };
+    }
+    return { test: false };
+  };
+
+  description(description?: string): FieldValidationResponse {
+    if (!description || description === '') {
+      return { test: false, message: 'Description is required' };
+    }
+    if (description.length < 4) {
+      return { test: false, message: 'Content minimum length is 4 characters' };
+    }
+    return { test: false };
+  };
+
+  statusId(statusId?: string): FieldValidationResponse {
+    if (!statusId || statusId === '') {
+      return { test: false, message: 'statusId is required' };
+    }
+    if (statusId.length !== 36) {
+      return { test: false, message: 'StatusId should be UUIDV4' };
+    }
+    return { test: false };
   };
 }
 

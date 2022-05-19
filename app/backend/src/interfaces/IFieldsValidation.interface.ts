@@ -11,4 +11,9 @@ export interface IFieldsValidations {
   name(name?: string): FieldValidationResponse;
   createdBy(createdBy?: string): FieldValidationResponse;
   thumbnail(thumbnail?: string): FieldValidationResponse;
+  title(title?: string): FieldValidationResponse;
+  content(content?: string): FieldValidationResponse;
+  description(description?: string): FieldValidationResponse;
+  thumbnail(thumbnail?: string): FieldValidationResponse;
+  statusId(statusId?: string): FieldValidationResponse;
 }
