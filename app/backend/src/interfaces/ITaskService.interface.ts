@@ -14,5 +14,5 @@ export interface ITaskService {
   getAllByBlockId(blockId: string): Promise<IServiceResponse>;
   create(task: ITask): Promise<IServiceResponse>;
   edit(id: string, payload: editableFields): Promise<IServiceResponse>;
-  changeStatus(id: string, status: string): Promise<IServiceResponse>;
+  changeStatus(id: string, statusId: string): Promise<IServiceResponse>;
 }

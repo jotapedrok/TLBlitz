@@ -81,7 +81,14 @@ export class TaskController {
 
   changeStatus: RequestHandler = async (req, res, next) => {
     try {
-
+      const { id } = req.params;
+      const { statusId } = req.body;
+      const response = await this.taskService.changeStatus(id, statusId);
+      if (response.error) {
+        const errorCode = this.setError(response.error);
+        return res.status(errorCode).json({ error: response.error });
+      }
+      return res.status(202).json(response.data);
     } catch (e) {
       next(e);
     }
