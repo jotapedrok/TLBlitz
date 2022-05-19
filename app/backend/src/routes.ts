@@ -41,9 +41,12 @@ routes.patch('/blocks/delete/:userId/:blockId', blockController.deleteUser);
 routes.patch('/blocks/:id', blockValidations.edit, blockController.edit);
 
 routes.get('/tasks');
+routes.get('/tasks/:userId');
 routes.get('/tasks/:blockId');
 routes.post('/tasks');
-routes.put('/tasks/:id');
+routes.patch('/tasks/:id');
+routes.patch('/tasks/status/:id');
+
 
 routes.get('/status');
 routes.get('/status/:blockId');
