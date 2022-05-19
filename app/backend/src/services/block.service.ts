@@ -7,9 +7,16 @@ export class BlockService implements IBlockService {
   constructor(private blockModel: IModel, private userModel: IModel, private usersBlocksModel: IModel) { }
 
   async getAllByUserId(userId: string): Promise<IServiceResponse> {
-    const user = await this.userModel.findByPk(userId);
+    const user = await this.userModel.findOne({
+      include: {
+        model: this.blockModel,
+        as: 'blocks',
+        through: { attributes: [] },
+      },
+      where: { id: userId },
+    });
     if (!user) return { error: 'User not found' };
-    const blocks = await this.blockModel.findOne({ where: { createdBy: userId }, raw: true });
+    const blocks = user.blocks;
     if (!blocks) return { error: 'No one block was found', data: [] };
     return { error: false, data: blocks };
   };

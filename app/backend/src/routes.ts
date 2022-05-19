@@ -1,4 +1,6 @@
-import { Router } from 'express';
+import { Request, Router } from 'express';
+import { Op } from 'sequelize';
+import { where } from 'sequelize/types';
 import { BlockController } from './controllers/block.controller';
 import { StatusController } from './controllers/status.controller';
 import { TaskController } from './controllers/task.controller';

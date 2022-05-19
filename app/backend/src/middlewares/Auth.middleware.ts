@@ -43,5 +43,7 @@ export class Auth {
     } catch (e) {
       next(e)
     }
-  }
+  };
+
+  testBlock: RequestHandler = (req, res, next) => { }
 }
