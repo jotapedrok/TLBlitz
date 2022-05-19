@@ -6,7 +6,7 @@ import { IStatusService } from "../interfaces/IStatusService.interface";
 export class StatusService implements IStatusService {
   constructor(private statusModel: IModel, private blockModel: IModel) { }
   getAll = async (): Promise<IServiceResponse> => {
-    const status = await this.statusModel.findAll({ limit: 3 });
+    const status = await this.statusModel.findAll({ where: { priority: 0 } });
     return { error: false, data: status };
   };
 

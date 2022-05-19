@@ -71,24 +71,24 @@ class FieldsValidation implements IFieldsValidations {
     if (!title || title === '') {
       return { test: false, message: 'Title is required' };
     }
-    if (title.length < 3) {
-      return { test: false, message: 'Title minimum length is 3 characters' };
+    if (title.length < 2) {
+      return { test: false, message: 'Title minimum length is 2 characters' };
     }
-    return { test: false };
+    return { test: true };
   };
 
   content(content?: string): FieldValidationResponse {
     if (content && content.length < 3) {
       return { test: false, message: 'Content minimum length is 3 characters' };
     }
-    return { test: false };
+    return { test: true };
   };
 
   description(description?: string): FieldValidationResponse {
     if (description && description.length < 4) {
       return { test: false, message: 'Content minimum length is 4 characters' };
     }
-    return { test: false };
+    return { test: true };
   };
 
   statusId(statusId?: string): FieldValidationResponse {
@@ -98,7 +98,7 @@ class FieldsValidation implements IFieldsValidations {
     if (statusId.length !== 36) {
       return { test: false, message: 'StatusId should be UUIDV4' };
     }
-    return { test: false };
+    return { test: true };
   };
 
   blockId(blockId?: string): FieldValidationResponse {
@@ -108,8 +108,18 @@ class FieldsValidation implements IFieldsValidations {
     if (blockId.length !== 36) {
       return { test: false, message: 'BlockId should be UUIDV4' };
     }
-    return { test: false };
+    return { test: true };
   };
+
+  priority(priority?: number): FieldValidationResponse {
+    if (priority === null || priority === undefined) {
+      return { test: false, message: 'Priority is required' };
+    }
+    if (priority < 1) {
+      return { test: false, message: 'Priority should be greater then 0' };
+    }
+    return { test: true };
+  }
 }
 
 export default new FieldsValidation();

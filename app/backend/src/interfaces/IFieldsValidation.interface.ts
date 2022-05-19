@@ -17,4 +17,5 @@ export interface IFieldsValidations {
   thumbnail(thumbnail?: string): FieldValidationResponse;
   statusId(statusId?: string): FieldValidationResponse;
   blockId(blockId?: string): FieldValidationResponse;
+  priority(priority?: number): FieldValidationResponse;
 }
