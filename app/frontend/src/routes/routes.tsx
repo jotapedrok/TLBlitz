@@ -5,8 +5,10 @@ export default function Router() {
   return (
     <Routes>
       <Route path="/login" />
-      <Route path='/sign-in' />
+      <Route path="/sign-in" />
       <Route element={<ProtectedRoute />}>
+        <Route path='/' />
+        <Route path='/list' />
       </Route>
     </Routes>
   );
