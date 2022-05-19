@@ -33,8 +33,9 @@ routes.patch('/users/:id', userValidations.update, userController.edit);
 routes.get('/blocks/:userId', blockController.getAllByUserId);
 routes.get('/blocks', blockController.getAll);
 routes.post('/blocks/add/:userId/:blockId', blockController.addUser);
-routes.patch('/blocks/edit/:userId/:blockId', blockController.editUser);
 routes.post('/blocks', blockController.create);
+routes.patch('/blocks/edit/:userId/:blockId', blockController.editUser);
+routes.patch('/blocks/delete/:userId/:blockId', blockController.editUser);
 routes.patch('/blocks/:id', blockController.edit);
 
 routes.get('/tasks');

@@ -74,11 +74,28 @@ export class BlockService implements IBlockService {
     };
   };
 
+  async deleteUser(blockId: string, userId: string): Promise<IServiceResponse> {
+    const block = await this.blockModel.findByPk(blockId);
+    if (!block) return { error: 'Block not found' };
+    const user = await this.userModel.findByPk(userId);
+    if (!user) return { error: 'User not found' };
+    await this.usersBlocksModel.update({ deleted: true, deletedAt: Date.now() }, {
+      where: {
+        userId,
+        blockId,
+      }
+    });
+    return {
+      error: false,
+      data: { message: `User ${user.username} was deleted from ${block.name}` },
+    };
+  };
+
   async edit(id: string, payload: editableFields): Promise<IServiceResponse> {
     const found = await this.blockModel.findByPk(id);
     if (!found) return { error: 'Block not found' };
     const response = await this.blockModel.update({ ...payload }, { where: { id } });
     if (!response[0]) return { error: 'Error on Update' }
     return { error: false, data: { id } };
-  }
+  };
 }
