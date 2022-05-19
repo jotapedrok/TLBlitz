@@ -4,7 +4,12 @@ import { ITask } from "../interfaces/ITask.interface";
 import { editableFields, ITaskService } from "../interfaces/ITaskService.interface";
 
 export class TaskService implements ITaskService {
-  constructor(private taskModel: IModel, private userModel: IModel, private blockModel: IModel) { };
+  constructor(
+    private taskModel: IModel,
+    private userModel: IModel,
+    private blockModel: IModel,
+    private statusModel: IModel,
+  ) { };
 
   getAll = async (): Promise<IServiceResponse> => {
     const tasks = await this.taskModel.findAll();
@@ -33,12 +38,18 @@ export class TaskService implements ITaskService {
   edit = async (id: string, payload: editableFields): Promise<IServiceResponse> => {
     const found = await this.taskModel.findByPk(id);
     if (!found) return { error: 'Task not found' };
-    const response = await this.blockModel.update({ ...payload }, { where: { id } });
+    const response = await this.taskModel.update({ ...payload }, { where: { id } });
     if (!response[0]) return { error: 'Error on Update' }
     return { error: false, data: { id } };
   };
 
-  changeStatus = async (id: string, status: string): Promise<IServiceResponse> => {
-    return { error: false, data: 'DEFAULT' };
+  changeStatus = async (id: string, statusId: string): Promise<IServiceResponse> => {
+    const found = await this.taskModel.findByPk(id);
+    if (!found) return { error: 'Task not found' };
+    const foundStatus = await this.statusModel.findByPk(statusId);
+    if (!foundStatus) return { error: 'Invalid Status' };
+    const response = await this.taskModel.update({ statusId }, { where: { id } });
+    if (!response[0]) return { error: 'Status change was failed' };
+    return { error: false, data: { message: `Status was changed to ${foundStatus.title}` } };
   };
 }
