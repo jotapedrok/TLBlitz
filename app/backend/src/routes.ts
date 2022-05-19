@@ -42,10 +42,10 @@ routes.patch('/users/:id', userValidations.update, userController.edit);
 
 routes.get('/blocks/:userId', blockController.getAllByUserId);
 routes.get('/blocks', blockController.getAll);
-routes.post('/blocks/add/:userId/:blockId', blockValidations.addUser, blockController.addUser);
+routes.post('/blocks/add-user/:userId/:blockId', blockValidations.addUser, blockController.addUser);
 routes.post('/blocks', blockValidations.create, blockController.create);
-routes.patch('/blocks/edit/:userId/:blockId', blockValidations.editUser, blockController.editUser);
-routes.patch('/blocks/delete/:userId/:blockId', blockController.deleteUser);
+routes.patch('/blocks/edit-user/:userId/:blockId', blockValidations.editUser, blockController.editUser);
+routes.delete('/blocks/delete-user/:userId/:blockId', blockController.deleteUser);
 routes.patch('/blocks/:id', blockValidations.edit, blockController.edit);
 
 routes.get('/tasks', taskController.getAll);
