@@ -50,11 +50,11 @@ routes.post('/users', userValidations.create, userController.create);
 routes.use(adminAuth.index, adminRoutes);
 routes.use(userAuth.index, userRoutes);
 
-userRoutes.get('/users/:id', userController.getById);
+userRoutes.get('/users/:id', userAuth.testId, userController.getById);
 adminRoutes.get('/users', userController.getAll);
-userRoutes.patch('/users/:id', userValidations.update, userController.edit);
+userRoutes.patch('/users/:id', userAuth.testId, userValidations.update, userController.edit);
 
-userRoutes.get('/blocks/:userId', blockController.getAllByUserId);
+userRoutes.get('/blocks/:userId', userAuth.testId, blockController.getAllByUserId);
 adminRoutes.get('/blocks', blockController.getAll);
 userRoutes.post('/blocks/add-user/:userId/:blockId', blockValidations.addUser, blockController.addUser);
 userRoutes.post('/blocks', blockValidations.create, blockController.create);
