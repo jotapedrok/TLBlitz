@@ -78,20 +78,14 @@ class FieldsValidation implements IFieldsValidations {
   };
 
   content(content?: string): FieldValidationResponse {
-    if (!content || content === '') {
-      return { test: false, message: 'Content is required' };
-    }
-    if (content.length < 3) {
+    if (content && content.length < 3) {
       return { test: false, message: 'Content minimum length is 3 characters' };
     }
     return { test: false };
   };
 
   description(description?: string): FieldValidationResponse {
-    if (!description || description === '') {
-      return { test: false, message: 'Description is required' };
-    }
-    if (description.length < 4) {
+    if (description && description.length < 4) {
       return { test: false, message: 'Content minimum length is 4 characters' };
     }
     return { test: false };
