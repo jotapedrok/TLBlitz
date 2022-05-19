@@ -1,11 +1,15 @@
 import { RequestHandler } from "express";
-import { editableFields, IBlockService } from "../interfaces/IBlockService.interface";
+import { IBlockService } from "../interfaces/IBlockService.interface";
 
 export class BlockController {
   constructor(private blockService: IBlockService) { }
 
   private setError(error: string): number {
     switch (error) {
+      case 'User not found':
+      case 'No one block was found':
+      case 'Block not found':
+        404
       default:
         return 500
     }
