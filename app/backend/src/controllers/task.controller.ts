@@ -41,7 +41,7 @@ export class TaskController {
   getAllByBlockId: RequestHandler = async (req, res, next) => {
     try {
       const { blockId } = req.params;
-      const response = await this.taskService.getAllByUserId(blockId);
+      const response = await this.taskService.getAllByBlockId(blockId);
       if (response.error) {
         const errorCode = this.setError(response.error);
         return res.status(errorCode).json({ error: response.error });

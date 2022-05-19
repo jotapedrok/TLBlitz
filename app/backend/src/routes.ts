@@ -59,5 +59,6 @@ routes.patch('/tasks/status/:id', taskValidations.changeStatus, taskController.c
 routes.get('/status');
 routes.get('/status/:blockId');
 routes.post('/status');
+routes.delete('/status/:id');
 
 export default routes;
