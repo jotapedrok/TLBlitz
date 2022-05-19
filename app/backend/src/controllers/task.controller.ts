@@ -11,7 +11,20 @@ export class TaskController {
     }
   };
 
-  getAll: RequestHandler = (req, res, next) => {
+  getAll: RequestHandler = async (_req, res, next) => {
+    try {
+      const response = await this.taskService.getAll();
+      if (response.error) {
+        const errorCode = this.setError(response.error);
+        return res.status(errorCode).json({ error: response.error });
+      }
+      return res.status(200).json(response.data);
+    } catch (e) {
+      next(e);
+    }
+  };
+
+  getAllByUserId: RequestHandler = async (req, res, next) => {
     try {
 
     } catch (e) {
@@ -19,7 +32,7 @@ export class TaskController {
     }
   };
 
-  getAllByUserId: RequestHandler = (req, res, next) => {
+  getAllByBlockId: RequestHandler = async (req, res, next) => {
     try {
 
     } catch (e) {
@@ -27,7 +40,7 @@ export class TaskController {
     }
   };
 
-  getAllByBlockId: RequestHandler = (req, res, next) => {
+  create: RequestHandler = async (req, res, next) => {
     try {
 
     } catch (e) {
@@ -35,7 +48,7 @@ export class TaskController {
     }
   };
 
-  create: RequestHandler = (req, res, next) => {
+  edit: RequestHandler = async (req, res, next) => {
     try {
 
     } catch (e) {
@@ -43,15 +56,7 @@ export class TaskController {
     }
   };
 
-  edit: RequestHandler = (req, res, next) => {
-    try {
-
-    } catch (e) {
-      next(e);
-    }
-  };
-
-  changeStatus: RequestHandler = (req, res, next) => {
+  changeStatus: RequestHandler = async (req, res, next) => {
     try {
 
     } catch (e) {
