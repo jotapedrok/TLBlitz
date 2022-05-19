@@ -18,8 +18,9 @@ const user = createSlice({
       state.isAuth = false;
     },
 
-    authenticate(state) {
+    authenticate(state, { payload }) {
       state.isAuth = true;
+      state.token = payload;
     }
   }
 });
