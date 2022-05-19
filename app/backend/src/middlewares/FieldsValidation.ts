@@ -93,10 +93,20 @@ class FieldsValidation implements IFieldsValidations {
 
   statusId(statusId?: string): FieldValidationResponse {
     if (!statusId || statusId === '') {
-      return { test: false, message: 'statusId is required' };
+      return { test: false, message: 'StatusId is required' };
     }
     if (statusId.length !== 36) {
       return { test: false, message: 'StatusId should be UUIDV4' };
+    }
+    return { test: false };
+  };
+
+  blockId(blockId?: string): FieldValidationResponse {
+    if (!blockId || blockId === '') {
+      return { test: false, message: 'BlockId is required' };
+    }
+    if (blockId.length !== 36) {
+      return { test: false, message: 'BlockId should be UUIDV4' };
     }
     return { test: false };
   };

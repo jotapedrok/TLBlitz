@@ -6,10 +6,13 @@ export class BlockValidation {
 
   create: RequestHandler = (req, res, next) => {
     try {
-      const { title, content, description } = req.body;
+      const { title, content, description, createdBy, statusId, blockId } = req.body;
       const testTitle = this.fieldsValidations.title(title);
       const testContent = this.fieldsValidations.content(content);
       const testDescription = this.fieldsValidations.description(description);
+      const testCreatedBy = this.fieldsValidations.createdBy(createdBy);
+      const testStatusId = this.fieldsValidations.statusId(statusId);
+      const testBlockId = this.fieldsValidations.blockId(blockId);
       if (!testTitle.test) {
         return res.status(400).json({ error: testTitle.message });
       }
@@ -18,6 +21,15 @@ export class BlockValidation {
       }
       if (!testDescription.test) {
         return res.status(400).json({ error: testDescription.message });
+      }
+      if (!testCreatedBy.test) {
+        return res.status(400).json({ error: testCreatedBy.message });
+      }
+      if (!testStatusId.test) {
+        return res.status(400).json({ error: testStatusId.message });
+      }
+      if (!testBlockId.test) {
+        return res.status(400).json({ error: testBlockId.message });
       }
       next();
     } catch (e) {

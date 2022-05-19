@@ -16,4 +16,5 @@ export interface IFieldsValidations {
   description(description?: string): FieldValidationResponse;
   thumbnail(thumbnail?: string): FieldValidationResponse;
   statusId(statusId?: string): FieldValidationResponse;
+  blockId(blockId?: string): FieldValidationResponse;
 }
