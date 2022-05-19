@@ -31,7 +31,11 @@ export class TaskService implements ITaskService {
   };
 
   edit = async (id: string, payload: editableFields): Promise<IServiceResponse> => {
-    return { error: false, data: 'DEFAULT' };
+    const found = await this.taskModel.findByPk(id);
+    if (!found) return { error: 'Task not found' };
+    const response = await this.blockModel.update({ ...payload }, { where: { id } });
+    if (!response[0]) return { error: 'Error on Update' }
+    return { error: false, data: { id } };
   };
 
   changeStatus = async (id: string, status: string): Promise<IServiceResponse> => {
