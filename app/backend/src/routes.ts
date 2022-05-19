@@ -37,7 +37,8 @@ const userValidations = new UserValidation(FieldsValidation);
 const blockValidations = new BlockValidation(FieldsValidation);
 const taskValidations = new TaskValidation(FieldsValidation);
 const statusValidations = new StatusValidation(FieldsValidation);
-const auth = new Auth('admin', authService);
+const adminAuth = new Auth('admin', authService);
+const userAuth = new Auth('user', authService);
 
 const routes = Router();
 const userRoutes = Router();
@@ -46,8 +47,8 @@ const adminRoutes = Router();
 routes.post('/login', loginValidations.login, userController.login);
 routes.post('/users', userValidations.create, userController.create);
 
-routes.use(adminRoutes);
-routes.use(userRoutes);
+routes.use(adminAuth.index, adminRoutes);
+routes.use(userAuth.index, userRoutes);
 
 userRoutes.get('/users/:id', userController.getById);
 adminRoutes.get('/users', userController.getAll);
@@ -73,7 +74,5 @@ userRoutes.get('/status', statusController.getAll);
 userRoutes.get('/status/:blockId', statusController.getAllByBlockId);
 userRoutes.post('/status', statusValidations.create, statusController.create);
 userRoutes.delete('/status/:id', statusController.delete);
-
-routes.get('/test', auth.index);
 
 export default routes;

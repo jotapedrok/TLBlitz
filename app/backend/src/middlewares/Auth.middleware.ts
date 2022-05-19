@@ -17,7 +17,7 @@ export class Auth {
       if (userRole !== this.role) {
         return res.status(401).json({ error: 'User unauthorized' });
       }
-      return res.status(200).json(response.data);
+      next();
     } catch (e) {
       next(e);
     }
