@@ -17,11 +17,12 @@ export class StatusService implements IStatusService {
     return { error: false, data: status };
   };
 
-  create = async (block: IStatus): Promise<IServiceResponse> => {
-
+  create = async (status: IStatus): Promise<IServiceResponse> => {
+    const created = await this.statusModel.create({ ...status });
+    return { error: false, data: { id: created.id, ...status } };
   };
 
-  delete = async (blockId: string, userId: string): Promise<IServiceResponse> => {
+  delete = async (statusId: string): Promise<IServiceResponse> => {
 
   };
 }
