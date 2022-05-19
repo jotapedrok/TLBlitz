@@ -32,8 +32,8 @@ routes.patch('/users/:id', userValidations.update, userController.edit);
 
 routes.get('/blocks/:userId', blockController.getAllByUserId);
 routes.get('/blocks', blockController.getAll);
+routes.post('/blocks/add/:userId/:blockId', blockController.addUser);
 routes.post('/blocks', blockController.create);
-routes.patch('/blocks/add/:userId/:blockId', blockController.addUser);
 routes.patch('/blocks/:id', blockController.edit);
 
 routes.get('/tasks');

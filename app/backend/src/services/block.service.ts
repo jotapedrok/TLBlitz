@@ -33,13 +33,28 @@ export class BlockService implements IBlockService {
     return { error: false, data: { id: created.id, ...block } };
   };
 
-  async addUser(blockId: string, userId: string): Promise<IServiceResponse> {
+  async addUser(blockId: string, userId: string, access: string): Promise<IServiceResponse> {
     const block = await this.blockModel.findByPk(blockId);
     if (!block) return { error: 'Block not found' };
     const user = await this.userModel.findByPk(userId);
     if (!user) return { error: 'User not found' };
-    block.addUser(userId);
-    return { error: false, data: block };
+    const [nothing, created] = await this.usersBlocksModel.findOrCreate({
+      where: {
+        userId,
+        blockId,
+        access,
+      }
+    });
+    let message;
+    if (created) {
+      message = `User ${user.username} is added as ${access}`
+    } else {
+      message = `User ${user.username} already exists in block`
+    }
+    return {
+      error: false,
+      data: { message },
+    };
   };
 
   async edit(id: string, payload: editableFields): Promise<IServiceResponse> {

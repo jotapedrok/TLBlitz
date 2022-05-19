@@ -54,7 +54,8 @@ export class BlockController {
   addUser: RequestHandler = async (req, res, next) => {
     try {
       const { blockId, userId } = req.params;
-      const response = await this.blockService.addUser(blockId, userId);
+      const { access } = req.body;
+      const response = await this.blockService.addUser(blockId, userId, access);
       if (response.error) {
         const errorCode = this.setError(response.error);
         return res.status(errorCode).json({ error: response.error });
