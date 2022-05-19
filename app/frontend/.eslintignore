@@ -5,3 +5,4 @@ build
 /src/react-app-env.d.ts
 dist
 /src/index.tsx
+tsconfig.json
