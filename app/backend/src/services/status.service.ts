@@ -23,6 +23,9 @@ export class StatusService implements IStatusService {
   };
 
   delete = async (statusId: string): Promise<IServiceResponse> => {
-
+    const found = await this.statusModel.findByPk(statusId);
+    if (!found) return { error: 'Status not found' };
+    await this.statusModel.destroy({ where: { id: statusId } });
+    return { error: false, data: 'Status deleted' };
   };
 }
