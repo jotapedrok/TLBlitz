@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { BlockController } from './controllers/block.controller';
+import { StatusController } from './controllers/status.controller';
 import { TaskController } from './controllers/task.controller';
 import UserController from './controllers/user.controller';
 import Block from './database/models/blocks.model';
@@ -14,6 +15,7 @@ import { TaskValidation } from './middlewares/TaskValidation.middleware';
 import { UserValidation } from './middlewares/UserValidation.middleware';
 import { AuthService } from './services/auth.service';
 import { BlockService } from './services/block.service';
+import { StatusService } from './services/status.service';
 import { TaskService } from './services/task.service';
 import { UserService } from './services/user.service';
 
@@ -21,10 +23,12 @@ const authService = new AuthService(User);
 const userService = new UserService(User);
 const blockService = new BlockService(Block, User, UserBlocks);
 const taskService = new TaskService(Task, User, Block, Status);
+const statusService = new StatusService(Status, Block);
 
 const userController = new UserController(authService, userService);
 const blockController = new BlockController(blockService);
 const taskController = new TaskController(taskService);
+const statusController = new StatusController(statusService);
 
 const loginValidations = new LoginValidation(FieldsValidation);
 const userValidations = new UserValidation(FieldsValidation);
@@ -56,9 +60,9 @@ routes.patch('/tasks/:id', taskValidations.edit, taskController.edit);
 routes.patch('/tasks/status/:id', taskValidations.changeStatus, taskController.changeStatus);
 
 
-routes.get('/status');
-routes.get('/status/:blockId');
-routes.post('/status');
-routes.delete('/status/:id');
+routes.get('/status', statusController.getAll);
+routes.get('/status/:blockId', statusController.getAllByBlockId);
+routes.post('/status', statusController.create);
+routes.delete('/status/:id', statusController.delete);
 
 export default routes;
