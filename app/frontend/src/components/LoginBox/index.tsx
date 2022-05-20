@@ -24,6 +24,7 @@ export default function LoginBox() {
   useEffect(() => {
     if (responseLogin.token) {
       dispatch(login(responseLogin.token));
+      localStorage.setItem('TLBTK_', responseLogin.token);
       navigate('/');
     }
   }, [responseLogin]);
