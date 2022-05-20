@@ -19,8 +19,10 @@ export class UserService implements IUserService {
   }
 
   async create(user: IUser): Promise<IServiceResponse> {
-    const found = await this.userModel.findOne({ where: { email: user.email } });
-    if (found) return { error: 'User already exist' };
+    const foundEmail = await this.userModel.findOne({ where: { email: user.email } });
+    if (foundEmail) return { error: 'Email already exist' };
+    const foundUsername = await this.userModel.findOne({ where: { email: user.username } });
+    if (foundUsername) return { error: 'Username already exist' };
     const { password, ...userWithoutPass } = user;
     const hash = bcrypt.hashSync(password, 14);
     const created = await this.userModel.create(
