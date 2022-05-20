@@ -11,6 +11,7 @@ const user = createSlice({
   reducers: {
     login(state, { payload }) {
       state.token = payload;
+      state.isAuth = true;
     },
 
     logout(state) {

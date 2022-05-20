@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import LoginBox from '../../components/LoginBox';
 import { auth } from '../../services/auth';
 import { authenticate } from '../../store/user.store';
 import './style.scss';
@@ -16,7 +17,6 @@ export default function Login() {
       if (authTest) {
         dispatch(authenticate(token));
         navigate('/');
-
       }
     }
   };
@@ -24,5 +24,10 @@ export default function Login() {
   useEffect(() => {
     authorization();
   }, []);
-  return <div>Login</div>;
+
+  return (
+    <div>
+      <LoginBox />
+    </div>
+  );
 }
