@@ -11,6 +11,7 @@ import {
 } from 'react-bootstrap';
 import { ISignFormField } from '../../interfaces/ISIgnFormField.interface';
 import './style.scss';
+import { IValidateSignForm } from '../../interfaces/IValidateSignForm.interface';
 
 export default function SignInForm() {
   const initalFormFiels: ISignFormField = {
@@ -20,17 +21,36 @@ export default function SignInForm() {
     email: '',
     password: '',
   };
+  const initialValidate: IValidateSignForm = {
+    email: undefined,
+    username: undefined,
+    password: undefined,
+  };
+
   const [formFields, setFormFields] = useState(initalFormFiels);
-  const [validated, setValidated] = useState(false);
+  const [isInvalid, setIsInvalid] = useState(initialValidate);
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const testFields = (email: string, username: string, password: string) => {
+    const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+    setIsInvalid({
+      email: !emailRegex.test(email),
+      username: username.length < 3,
+      password: password.length < 8,
+    });
+    return (
+      emailRegex.test(email) && username.length >= 3 && password.length >= 8
+    );
+  };
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const form = e.currentTarget;
-    if (form.checkValidity() === false) {
-      e.stopPropagation();
+    const { email, username, password } = formFields;
+    if (testFields(email, username, password)) {
+      // enviar para a api
+      console.log(formFields);
+    } else {
+      console.log(formFields);
     }
-
-    setValidated(true);
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -42,11 +62,10 @@ export default function SignInForm() {
     });
   };
 
-  const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
   return (
     <Form className="container" noValidate onSubmit={handleSubmit}>
       <Row className="mt-3 mb-3">
-        <FormGroup controlId="username">
+        <FormGroup className="mb-3" controlId="username">
           <FormLabel>Username</FormLabel>
           <FormControl
             name="username"
@@ -54,11 +73,13 @@ export default function SignInForm() {
             required
             type="text"
             placeholder="Username"
-            minLength={3}
+            isInvalid={isInvalid.username}
           />
-          <FormControl.Feedback>Looks good!</FormControl.Feedback>
+          <FormControl.Feedback type="invalid">
+            Choose a valid Username(minimum 3 characteres)
+          </FormControl.Feedback>
         </FormGroup>
-        <FormGroup controlId="email">
+        <FormGroup className="mb-3" controlId="email">
           <FormLabel>Email</FormLabel>
           <FormControl
             name="email"
@@ -66,12 +87,13 @@ export default function SignInForm() {
             required
             type="email"
             placeholder="Email"
-            isValid={validated}
-            isInvalid={!validated}
+            isInvalid={isInvalid.email}
           />
-          <FormControl.Feedback>Looks good!</FormControl.Feedback>
+          <FormControl.Feedback type="invalid">
+            Please choose a valid Email
+          </FormControl.Feedback>
         </FormGroup>
-        <FormGroup controlId="password">
+        <FormGroup className="mb-3" controlId="password">
           <FormLabel>Password</FormLabel>
           <InputGroup hasValidation>
             <InputGroup.Text id="inputGroupPrepend">
@@ -84,9 +106,10 @@ export default function SignInForm() {
               placeholder="Password"
               aria-describedby="inputGroupPrepend"
               required
+              isInvalid={isInvalid.password}
             />
             <FormControl.Feedback type="invalid">
-              Please choose a password
+              Please valid Password(minimum 8 characteres)
             </FormControl.Feedback>
           </InputGroup>
         </FormGroup>
