@@ -22,13 +22,9 @@ const user = createSlice({
     authenticate(state, { payload }) {
       state.isAuth = true;
       state.token = payload;
-    }
-  }
+    },
+  },
 });
 
 export default user.reducer;
-export const {
-  login,
-  logout,
-  authenticate,
-} = user.actions;
+export const { login, logout, authenticate } = user.actions;
