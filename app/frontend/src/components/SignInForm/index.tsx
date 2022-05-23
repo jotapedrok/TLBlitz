@@ -138,6 +138,15 @@ export default function SignInForm() {
         <Button className="" type="submit">
           Sign In
         </Button>
+        <Button
+          onClick={e => {
+            e.preventDefault();
+            navigate('/login');
+          }}
+          variant="secondary"
+        >
+          Login
+        </Button>
       </Form>
       <p style={{ color: error ? 'red' : 'green' }}>{alert}</p>
     </>
