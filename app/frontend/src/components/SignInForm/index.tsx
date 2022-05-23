@@ -1,5 +1,6 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react';
 import { FiLock } from 'react-icons/fi';
+import { useNavigate } from 'react-router-dom';
 import {
   Form,
   InputGroup,
@@ -12,6 +13,7 @@ import {
 import { ISignFormField } from '../../interfaces/ISIgnFormField.interface';
 import './style.scss';
 import { IValidateSignForm } from '../../interfaces/IValidateSignForm.interface';
+import { createUser } from '../../http/user';
 
 export default function SignInForm() {
   const initalFormFiels: ISignFormField = {
@@ -26,9 +28,12 @@ export default function SignInForm() {
     username: undefined,
     password: undefined,
   };
-
   const [formFields, setFormFields] = useState(initalFormFiels);
   const [isInvalid, setIsInvalid] = useState(initialValidate);
+  const [error, setError] = useState(false);
+  const [alert, setAlert] = useState('');
+
+  const navigate = useNavigate();
 
   const testFields = (email: string, username: string, password: string) => {
     const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
@@ -46,10 +51,18 @@ export default function SignInForm() {
     e.preventDefault();
     const { email, username, password } = formFields;
     if (testFields(email, username, password)) {
-      // enviar para a api
-      console.log(formFields);
-    } else {
-      console.log(formFields);
+      const response = await createUser(formFields);
+      if (response.error) {
+        setError(true);
+      } else {
+        setAlert('User created');
+      }
+      setFormFields({
+        ...formFields,
+        email: '',
+        username: '',
+        password: '',
+      });
     }
   };
 
