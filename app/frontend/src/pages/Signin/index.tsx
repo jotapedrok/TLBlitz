@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import SignInForm from '../../components/SignInForm';
 import { auth } from '../../services/auth';
 import { authenticate } from '../../store/user.store';
 import './style.scss';
@@ -24,5 +25,9 @@ export default function Signin() {
     authorization();
   }, []);
 
-  return <div>Signin</div>;
+  return (
+    <div>
+      <SignInForm />
+    </div>
+  );
 }
