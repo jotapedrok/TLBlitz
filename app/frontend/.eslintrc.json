@@ -31,7 +31,7 @@
         "prettier/prettier": "error",
         "react/react-in-jsx-scope": 0,
         "react-hooks/rules-of-hooks": "error",
-        "react-hooks/exhaustive-deps": "warn",
+        "react-hooks/exhaustive-deps": 0,
         "import/prefer-default-export": "off",
         "no-useless-escape": 0,
         "react/jsx-filename-extension": [

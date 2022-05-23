@@ -1,14 +1,16 @@
-import axios from "axios";
-import store from "../store";
+import axios from 'axios';
+import store from '../store';
 
-const { user: { token } } = store.getState();
+const {
+  user: { token },
+} = store.getState();
 
 const api = axios.create({
   baseURL: process.env.API_URL,
   responseType: 'json',
   headers: {
-    Authorization: token
-  }
-})
+    Authorization: token,
+  },
+});
 
-export { api }
+export { api };

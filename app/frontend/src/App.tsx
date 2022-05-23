@@ -1,11 +1,11 @@
 import React from 'react';
-import SignInForm from './components/SignInForm';
 import './App.scss';
+import Router from './routes/routes';
 
 function App() {
   return (
     <div className="App">
-      <SignInForm />
+      <Router />
     </div>
   );
 }
