@@ -40,8 +40,8 @@ export default function LoginBox() {
     setPassword(value);
   };
 
-  const onSubmit = async (email: string, password: string) => {
-    const response = await loginHttp(email, password);
+  const onSubmit = async (recivedEmail: string, recivedPassword: string) => {
+    const response = await loginHttp(recivedEmail, recivedPassword);
     setResponseLogin(response);
   };
   return (
@@ -49,7 +49,7 @@ export default function LoginBox() {
       <div className="input-conteiners container">
         <Form>
           <FormGroup className="mb-3" controlId="formBasicEmail">
-            <FormLabel>Email address</FormLabel>
+            <FormLabel>Email</FormLabel>
             <FormControl
               onChange={emailChange}
               type="email"
@@ -59,7 +59,7 @@ export default function LoginBox() {
         </Form>
         <Form>
           <FormGroup className="mb-3" controlId="Password">
-            <FormLabel>Email address</FormLabel>
+            <FormLabel>Password</FormLabel>
             <FormControl
               onChange={passwordChange}
               type="password"
@@ -76,6 +76,15 @@ export default function LoginBox() {
           type="submit"
         >
           Enter
+        </Button>
+        <Button
+          onClick={e => {
+            e.preventDefault();
+            navigate('/sign-in');
+          }}
+          variant="secondary"
+        >
+          Sign In
         </Button>
       </div>
     </div>
