@@ -33,6 +33,8 @@ export default function SignInForm() {
   const [error, setError] = useState(false);
   const [alert, setAlert] = useState('');
 
+  const navigate = useNavigate();
+
   const testFields = (email: string, username: string, password: string) => {
     const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
     setIsInvalid({
