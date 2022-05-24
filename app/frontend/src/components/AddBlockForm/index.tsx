@@ -1,4 +1,9 @@
-import React, { ChangeEvent, ChangeEventHandler, useState } from 'react';
+import React, {
+  ChangeEvent,
+  ChangeEventHandler,
+  MouseEventHandler,
+  useState,
+} from 'react';
 import {
   Button,
   Form,
@@ -8,9 +13,15 @@ import {
   FormText,
 } from 'react-bootstrap';
 import { MdClose } from 'react-icons/md';
+import { IAddBlockFormFields } from '../../pages/Home';
 import './style.scss';
 
-export default function AddBlockForm({ onSubmit, close }: any) {
+interface props {
+  onSubmit(formField: IAddBlockFormFields): void;
+  close: MouseEventHandler;
+}
+
+export default function AddBlockForm({ onSubmit, close }: props) {
   const [formFields, setFormFields] = useState({
     blockName: '',
     blockThumb: '',
