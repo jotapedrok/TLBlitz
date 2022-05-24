@@ -3,6 +3,7 @@ import { Button, FormControl, FormSelect, InputGroup } from 'react-bootstrap';
 import { BiPlus } from 'react-icons/bi';
 import AddBlockForm from '../../components/AddBlockForm';
 import TaskBlock from '../../components/TaskBlock';
+import { createBlock } from '../../http/block';
 import './style.scss';
 
 export interface IAddBlockFormFields {
@@ -12,14 +13,24 @@ export interface IAddBlockFormFields {
 
 export default function Home() {
   const [blockFormOpen, setBlockFormOpen] = useState(false);
+  const [sendError, setSendError] = useState('');
 
   const toggleStateAddForm: MouseEventHandler = (e: MouseEvent) => {
     e.preventDefault();
     setBlockFormOpen(!blockFormOpen);
   };
 
-  const submitBlock = (formFields: IAddBlockFormFields) => {
-    console.log(formFields);
+  const submitBlock = async (formFields: IAddBlockFormFields) => {
+    const { blockName, blockThumb } = formFields;
+    const response = await createBlock({
+      name: blockName,
+      thumbnail: blockThumb,
+    });
+    if (response.error) {
+      setSendError(response.error);
+    } else {
+      setSendError('Block Created!');
+    }
   };
 
   return (
@@ -52,6 +63,7 @@ export default function Home() {
         {blockFormOpen && (
           <AddBlockForm onSubmit={submitBlock} close={toggleStateAddForm} />
         )}
+        <p>{sendError}</p>
       </div>
     </div>
   );
