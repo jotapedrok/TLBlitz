@@ -5,12 +5,23 @@ import AddBlockForm from '../../components/AddBlockForm';
 import TaskBlock from '../../components/TaskBlock';
 import './style.scss';
 
+export interface IAddBlockFormFields {
+  blockName: string;
+  blockThumb: string;
+}
+
 export default function Home() {
   const [blockFormOpen, setBlockFormOpen] = useState(false);
-  const createBlock: MouseEventHandler = (e: MouseEvent) => {
+
+  const toggleStateAddForm: MouseEventHandler = (e: MouseEvent) => {
     e.preventDefault();
     setBlockFormOpen(!blockFormOpen);
   };
+
+  const submitBlock = (formFields: IAddBlockFormFields) => {
+    console.log(formFields);
+  };
+
   return (
     <div className="home-page">
       <div className="home-page-content">
@@ -34,11 +45,13 @@ export default function Home() {
           <TaskBlock name="test" group={false} />
         </div>
         <div className="create-block-button-container">
-          <Button type="button" onClick={createBlock}>
+          <Button type="button" onClick={toggleStateAddForm}>
             <BiPlus />
           </Button>
         </div>
-        {blockFormOpen && <AddBlockForm />}
+        {blockFormOpen && (
+          <AddBlockForm onSubmit={submitBlock} close={toggleStateAddForm} />
+        )}
       </div>
     </div>
   );
