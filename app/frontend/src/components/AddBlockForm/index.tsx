@@ -14,12 +14,12 @@ export default function AddBlockForm({ onSubmit }: any) {
     <div className="add-block-form">
       <Form>
         <FormGroup className="mb-3" controlId="blockName">
-          <FormLabel>Block Name</FormLabel>
-          <FormControl type="text" placeholder="Enter Block Name" />
+          <FormLabel>Name</FormLabel>
+          <FormControl type="text" placeholder="Enter block name" />
         </FormGroup>
         <FormGroup className="mb-3" controlId="blockThumb">
-          <FormLabel>Block Thumbnail</FormLabel>
-          <FormControl type="text" placeholder="Enter Block Thumbnail URL" />
+          <FormLabel>Thumbnail</FormLabel>
+          <FormControl type="text" placeholder="Enter image URL" />
           <FormText className="text-muted">Send a valid image url</FormText>
         </FormGroup>
         <Button type="submit" variant="secondary" onSubmit={onSubmit}>

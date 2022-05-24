@@ -1,18 +1,18 @@
-import React, { MouseEvent, MouseEventHandler } from 'react';
+import React, { MouseEvent, MouseEventHandler, useState } from 'react';
 import { Button, FormControl, FormSelect, InputGroup } from 'react-bootstrap';
 import { BiPlus } from 'react-icons/bi';
-import Header from '../../components/Header';
+import AddBlockForm from '../../components/AddBlockForm';
 import TaskBlock from '../../components/TaskBlock';
 import './style.scss';
 
 export default function Home() {
+  const [blockFormOpen, setBlockFormOpen] = useState(false);
   const createBlock: MouseEventHandler = (e: MouseEvent) => {
     e.preventDefault();
-    console.log('click');
+    setBlockFormOpen(!blockFormOpen);
   };
   return (
     <div className="home-page">
-      <Header />
       <div className="home-page-content">
         <div className="title-one">
           <h4>Your Blocks:</h4>
@@ -38,6 +38,7 @@ export default function Home() {
             <BiPlus />
           </Button>
         </div>
+        {blockFormOpen && <AddBlockForm />}
       </div>
     </div>
   );
