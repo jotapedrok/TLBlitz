@@ -1,10 +1,15 @@
-import React from 'react';
-import { FormControl, FormSelect, InputGroup } from 'react-bootstrap';
+import React, { MouseEvent, MouseEventHandler } from 'react';
+import { Button, FormControl, FormSelect, InputGroup } from 'react-bootstrap';
+import { BiPlus } from 'react-icons/bi';
 import Header from '../../components/Header';
 import TaskBlock from '../../components/TaskBlock';
 import './style.scss';
 
 export default function Home() {
+  const createBlock: MouseEventHandler = (e: MouseEvent) => {
+    e.preventDefault();
+    console.log('click');
+  };
   return (
     <div className="home-page">
       <Header />
@@ -27,6 +32,11 @@ export default function Home() {
         </div>
         <div className="block-list">
           <TaskBlock name="test" group={false} />
+        </div>
+        <div className="create-block-button-container">
+          <Button type="button" onClick={createBlock}>
+            <BiPlus />
+          </Button>
         </div>
       </div>
     </div>
