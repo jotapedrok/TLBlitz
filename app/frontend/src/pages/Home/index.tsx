@@ -1,9 +1,18 @@
 import React, { MouseEvent, MouseEventHandler, useState } from 'react';
 import { Button, FormControl, FormSelect, InputGroup } from 'react-bootstrap';
 import { BiPlus } from 'react-icons/bi';
+import { useDispatch } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid';
 import AddBlockForm from '../../components/AddBlockForm';
+import { IAlertProps } from '../../components/AlertBox';
 import TaskBlock from '../../components/TaskBlock';
 import { createBlock } from '../../http/block';
+import {
+  activeAlert,
+  desativeAlert,
+  resetAlert,
+  sendAlert,
+} from '../../store/alert.store';
 import './style.scss';
 
 export interface IAddBlockFormFields {
@@ -13,7 +22,8 @@ export interface IAddBlockFormFields {
 
 export default function Home() {
   const [blockFormOpen, setBlockFormOpen] = useState(false);
-  const [sendError, setSendError] = useState('');
+  const [success, setSuccess] = useState('');
+  const dispatch = useDispatch();
 
   const toggleStateAddForm: MouseEventHandler = (e: MouseEvent) => {
     e.preventDefault();
@@ -27,9 +37,31 @@ export default function Home() {
       thumbnail: blockThumb,
     });
     if (response.error) {
-      setSendError(response.error);
+      const alert: IAlertProps = {
+        hasButton: true,
+        title: 'Block not created',
+        content: response.error,
+        buttons: [
+          {
+            id: uuidv4(),
+            text: 'Ok',
+            variant: 'primary',
+            onClick: e => {
+              e.preventDefault();
+              dispatch(desativeAlert());
+              dispatch(resetAlert());
+            },
+          },
+        ],
+      };
+      dispatch(sendAlert(alert));
+      dispatch(activeAlert());
     } else {
-      setSendError('Block Created!');
+      setBlockFormOpen(false);
+      setSuccess('Block created!');
+      setTimeout(() => {
+        setSuccess('');
+      }, 5000);
     }
   };
 
@@ -63,7 +95,7 @@ export default function Home() {
         {blockFormOpen && (
           <AddBlockForm onSubmit={submitBlock} close={toggleStateAddForm} />
         )}
-        <p>{sendError}</p>
+        <p style={{ color: 'green' }}>{success}</p>
       </div>
     </div>
   );

@@ -1,12 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { AlertProps } from '../components/AlertBox';
+import { IAlertProps } from '../components/AlertBox';
 
-const initalAlert: Partial<AlertProps> = {};
+const initalAlert: Partial<IAlertProps> = {};
 const alert = createSlice({
   name: 'alert',
 
   initialState: {
-    hasAlert: true,
+    hasAlert: false,
     alert: initalAlert,
   },
 
@@ -15,7 +15,7 @@ const alert = createSlice({
       state.hasAlert = true;
     },
 
-    desativAlert(state) {
+    desativeAlert(state) {
       state.hasAlert = false;
     },
 
@@ -30,5 +30,5 @@ const alert = createSlice({
 });
 
 export default alert.reducer;
-export const { activeAlert, desativAlert, resetAlert, sendAlert } =
+export const { activeAlert, desativeAlert, resetAlert, sendAlert } =
   alert.actions;

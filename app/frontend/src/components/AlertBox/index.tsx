@@ -3,10 +3,10 @@ import { Button } from 'react-bootstrap';
 import { MdClose } from 'react-icons/md';
 import './style.scss';
 
-export interface AlertProps {
+export interface IAlertProps {
   hasButton: boolean;
   buttons: {
-    i: number;
+    id: string;
     text: string;
     onClick: MouseEventHandler<HTMLButtonElement>;
     variant: string;
@@ -20,7 +20,7 @@ export default function AlertBox({
   buttons,
   content,
   title,
-}: Partial<AlertProps>) {
+}: Partial<IAlertProps>) {
   return (
     <div className="alert-box">
       <div className="alert-box-content">
@@ -42,7 +42,7 @@ export default function AlertBox({
             buttons.map(button => (
               <Button
                 type="button"
-                key={`${button.i}_btn_key_define`}
+                key={`${button.id}_btn`}
                 onClick={button.onClick}
                 variant={button.variant}
               >

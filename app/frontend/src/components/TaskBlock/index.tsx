@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
-import { MdGroup, MdClose, MdPerson } from 'react-icons/md';
+import { MdGroup, MdPerson } from 'react-icons/md';
+import { BsThreeDotsVertical } from 'react-icons/bs';
 import { ITaskBlockProps } from '../../interfaces/ITaskBlockProps.interface';
 import './style.scss';
 
@@ -17,7 +18,7 @@ export default function TaskBlock({
           src={thumb || 'https://via.placeholder.com/200'}
         />
         <Card.ImgOverlay>
-          <MdClose />
+          <BsThreeDotsVertical />
           <Card.Body style={{ display: 'flex' }}>
             <Card.Title>{name}</Card.Title>
             {group ? <MdGroup /> : <MdPerson />}
