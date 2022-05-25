@@ -21,11 +21,30 @@ interface props {
   close: MouseEventHandler;
 }
 
+interface Validate {
+  blockName?: boolean;
+  blockThumb?: boolean;
+}
+
 export default function AddBlockForm({ onSubmit, close }: props) {
   const [formFields, setFormFields] = useState({
     blockName: '',
     blockThumb: '',
   });
+  const initialValidate: Validate = {
+    blockName: undefined,
+    blockThumb: undefined,
+  };
+  const [isInvalid, setIsInvalid] = useState(initialValidate);
+
+  const testFields = (blockName: string, blockThumb: string) => {
+    const urlRegex = /^(https?|chrome):\/\/[^\s$.?#].[^\s]*$/gm;
+    setIsInvalid({
+      blockName: blockName.length < 3,
+      blockThumb: !urlRegex.test(blockThumb),
+    });
+    return blockName.length >= 3 && urlRegex.test(blockThumb);
+  };
 
   const handleChange: ChangeEventHandler = (
     e: ChangeEvent<HTMLInputElement>,
@@ -49,7 +68,11 @@ export default function AddBlockForm({ onSubmit, close }: props) {
             type="text"
             placeholder="Enter block name"
             value={formFields.blockName}
+            isInvalid={isInvalid.blockName}
           />
+          <FormControl.Feedback type="invalid">
+            Minimum 3 characteres
+          </FormControl.Feedback>
         </FormGroup>
         <FormGroup className="mb-3" controlId="blockThumb">
           <FormLabel>Thumbnail</FormLabel>
@@ -59,7 +82,11 @@ export default function AddBlockForm({ onSubmit, close }: props) {
             value={formFields.blockThumb}
             type="text"
             placeholder="Enter image URL"
+            isInvalid={isInvalid.blockThumb}
           />
+          <FormControl.Feedback type="invalid">
+            Invalid url
+          </FormControl.Feedback>
           <FormText className="text-muted">Send a valid image url</FormText>
         </FormGroup>
         <Button
@@ -67,11 +94,15 @@ export default function AddBlockForm({ onSubmit, close }: props) {
           variant="secondary"
           onSubmit={e => {
             e.preventDefault();
-            onSubmit(formFields);
+            if (testFields(formFields.blockName, formFields.blockThumb)) {
+              onSubmit(formFields);
+            }
           }}
           onClick={e => {
             e.preventDefault();
-            onSubmit(formFields);
+            if (testFields(formFields.blockName, formFields.blockThumb)) {
+              onSubmit(formFields);
+            }
           }}
         >
           Create Block
