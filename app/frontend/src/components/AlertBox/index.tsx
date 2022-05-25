@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { MouseEventHandler } from 'react';
 import { Button } from 'react-bootstrap';
 import { MdClose } from 'react-icons/md';
 import './style.scss';
@@ -8,7 +8,7 @@ export interface AlertProps {
   buttons: {
     i: number;
     text: string;
-    onClick(): void;
+    onClick: MouseEventHandler<HTMLButtonElement>;
     variant: string;
   }[];
   content: string;
@@ -23,36 +23,34 @@ export default function AlertBox({
 }: Partial<AlertProps>) {
   return (
     <div className="alert-box">
-      <div className="alert-box-header">
-        <h5 className="alert-box-header-title">{title}</h5>
-        {!hasButton && (
-          <div className="alert-box-header-close">
-            <MdClose />
-          </div>
-        )}
+      <div className="alert-box-content">
+        <div className="alert-box-content-header">
+          <h5 className="alert-box-content-header-title">{title}</h5>
+          {!hasButton && (
+            <div className="alert-box-content-header-close">
+              <MdClose />
+            </div>
+          )}
+          <div className="line" />
+        </div>
+        <div className="content-container">
+          <p>{content}</p>
+        </div>
+        <div className="buttons-conteiner">
+          {hasButton &&
+            buttons &&
+            buttons.map(button => (
+              <Button
+                type="button"
+                key={`${button.i}_btn_key_define`}
+                onClick={button.onClick}
+                variant={button.variant}
+              >
+                {button.text}
+              </Button>
+            ))}
+        </div>
       </div>
-      <hr className="line" />
-      <div className="content-container">
-        <p>{content}</p>
-      </div>
-      {hasButton && (
-        <>
-          <hr />
-          <div className="buttons-conteiner">
-            {buttons &&
-              buttons.map(button => (
-                <Button
-                  type="button"
-                  key={`${button.i}_btn_key_define`}
-                  onClick={button.onClick}
-                  variant={button.variant}
-                >
-                  {button.text}
-                </Button>
-              ))}
-          </div>
-        </>
-      )}
     </div>
   );
 }
