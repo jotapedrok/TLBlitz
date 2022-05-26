@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   activeAlert,
   desativeAlert,
+  resetAlert,
   sendAlert,
 } from '../../../store/alert.store';
 import { IAlertProps } from '../../AlertBox';
@@ -44,6 +45,15 @@ export default function BlockOptions({ setOptionsOpen, id }: props) {
           text: 'Delete',
           variant: 'danger',
           onClick: deleteClick,
+        },
+        {
+          id: uuidv4(),
+          text: 'Cancel',
+          variant: 'secundary',
+          onClick: () => {
+            dispatch(desativeAlert());
+            dispatch(resetAlert());
+          },
         },
       ],
     };
