@@ -85,7 +85,7 @@ export default function Home() {
           </InputGroup>
         </div>
         <div className="block-list">
-          <TaskBlock name="test" group={false} />
+          <TaskBlock id="testId" name="test" group={false} />
         </div>
         <div className="create-block-button-container">
           <Button type="button" onClick={toggleStateAddForm}>

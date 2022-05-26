@@ -8,13 +8,14 @@ import BlockOptions from './BlockOptions';
 
 export default function TaskBlock({
   thumb,
+  id,
   name,
   group = false,
 }: ITaskBlockProps) {
   const [optionsOpen, setOptionsOpen] = useState(false);
   return (
     <div className="TaskBlock" style={{ width: 200, height: 200 }}>
-      {optionsOpen && <BlockOptions setOptionsOpen={setOptionsOpen} />}
+      {optionsOpen && <BlockOptions id={id} setOptionsOpen={setOptionsOpen} />}
       <Card>
         <Card.Img
           variant="top"
