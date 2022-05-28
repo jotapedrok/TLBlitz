@@ -34,9 +34,17 @@ export default function Task({
           <p className="task-options-info-creator">{createdBy}</p>
           <p className="task-options-info-created-at">{createdDate}</p>
         </div>
-        <button type="button" className="btn task-options-edit">
-          edit
-        </button>
+        <div className="task-options-edit">
+          <button type="button" className="btn task-options-edit-btn">
+            edit
+          </button>
+          <button type="button" className="btn task-options-edit-status">
+            Status
+          </button>
+          <button type="button" className="btn task-options-edit-task">
+            Task
+          </button>
+        </div>
         <button
           onClick={() => setOpen(!open)}
           aria-controls="example-collapse-text"
