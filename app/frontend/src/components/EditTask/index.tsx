@@ -1,4 +1,4 @@
-import React, { ChangeEvent, MouseEvent, useState } from 'react';
+import React, { ChangeEvent, MouseEvent, useEffect, useState } from 'react';
 import { Button, FormControl, InputGroup } from 'react-bootstrap';
 import { editTask } from '../../http/task';
 import './style.scss';
@@ -19,13 +19,21 @@ export default function EditTask({
   const [inputValues, setInputValues] = useState({
     title: '',
     description: '',
-    contente: '',
+    content: '',
   });
   const [savedFields, setSavedFields] = useState({
-    title: taskTitle,
-    description: taskDescription,
-    content: taskContent,
+    title: '',
+    description: '',
+    content: '',
   });
+
+  useEffect(() => {
+    setSavedFields({
+      title: taskTitle,
+      description: taskDescription,
+      content: taskContent,
+    });
+  }, []);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -48,7 +56,9 @@ export default function EditTask({
     <div className="edit-task">
       <div className="edit-task-x-btn">x</div>
       <div className="edit-task-title-container">
-        <div className="edit-task-title-container-title">{taskTitle}</div>
+        <div className="edit-task-title-container-title">
+          {savedFields.title}
+        </div>
         <div className="edit-task-title-container-pen-btn">pen</div>
         <InputGroup>
           <FormControl
@@ -60,12 +70,23 @@ export default function EditTask({
             aria-describedby="basic-addon1"
           />
           <Button variant="light">x</Button>
-          <InputGroup.Text id="basic-addon1">Save Icon</InputGroup.Text>
+          <Button
+            variant="secundary"
+            onClick={e => {
+              e.preventDefault();
+              setSavedFields({
+                ...savedFields,
+                title: inputValues.title,
+              });
+            }}
+          >
+            Save
+          </Button>
         </InputGroup>
       </div>
       <div className="edit-task-description-container">
         <div className="edit-task-description-container-description">
-          {taskDescription}
+          {savedFields.description}
         </div>
         <div className="edit-task-description-container-pen-btn">pen</div>
         <InputGroup>
@@ -76,30 +97,59 @@ export default function EditTask({
             as="textarea"
             aria-label="description textarea"
           />
-          <InputGroup.Text id="basic-addon1">Save Icon</InputGroup.Text>
+          <Button
+            variant="secundary"
+            onClick={e => {
+              e.preventDefault();
+              setSavedFields({
+                ...savedFields,
+                description: inputValues.description,
+              });
+            }}
+          >
+            Save
+          </Button>
           <Button variant="light">x</Button>
         </InputGroup>
       </div>
       <div className="edit-task-content-container">
-        <div className="edit-task-content-container-content">{taskContent}</div>
+        <div className="edit-task-content-container-content">
+          {savedFields.content}
+        </div>
         <div className="edit-task-content-container-pen-btn">pen</div>
         <InputGroup>
           <FormControl
             onChange={handleChange}
-            value={inputValues.contente}
+            value={inputValues.content}
             name="content"
             as="textarea"
             aria-label="content textarea"
           />
-          <InputGroup.Text id="basic-addon1">Save Icon</InputGroup.Text>
+          <Button
+            variant="secundary"
+            onClick={e => {
+              e.preventDefault();
+              setSavedFields({
+                ...savedFields,
+                content: inputValues.content,
+              });
+            }}
+          >
+            Save
+          </Button>
           <Button variant="light">x</Button>
         </InputGroup>
       </div>
       <div className="edit-task-footer">
-        <Button disabled={inputValues.title === ''} variant="secondary">
+        <Button
+          onClick={saveTask}
+          disabled={savedFields.title === ''}
+          variant="secondary"
+        >
           Save
         </Button>
       </div>
+      <div className="bg" />
     </div>
   );
 }
