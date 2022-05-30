@@ -12,6 +12,7 @@ interface props {
   taskDescription: string;
   taskContent: string;
   fetchTasks(): void;
+  setEditing(bool: boolean): void;
 }
 
 export default function EditTask({
@@ -20,8 +21,9 @@ export default function EditTask({
   taskDescription,
   taskContent,
   fetchTasks,
+  setEditing,
 }: props) {
-  const [canSave, setCanSave] = useState(false);
+  const [feedback, setFeedback] = useState('');
   const [inputValues, setInputValues] = useState({
     title: '',
     description: '',
@@ -64,6 +66,10 @@ export default function EditTask({
       dispatch(sendAlert(alert));
       dispatch(activeAlert());
     } else {
+      setFeedback('Task Saved!');
+      setTimeout(() => {
+        setFeedback('');
+      }, 5000);
       fetchTasks();
     }
   };
@@ -75,6 +81,7 @@ export default function EditTask({
           onClick={e => {
             e.preventDefault();
             fetchTasks();
+            setEditing(false);
           }}
           variant="outline-secundary"
         >
@@ -171,10 +178,14 @@ export default function EditTask({
           onClick={saveTask}
           disabled={savedFields.title === ''}
           variant="secondary"
-          aria-disabled={canSave}
         >
           Save
         </Button>
+        <div className="edit-task-footer-feedback">
+          <p className="feedback" style={{ color: 'green' }}>
+            {feedback}
+          </p>
+        </div>
       </div>
       <div className="bg" />
     </div>

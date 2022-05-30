@@ -37,6 +37,7 @@ export default function Task({
           taskDescription={taskDescription}
           taskId={taskId}
           taskTitle={taskTitle}
+          setEditing={setEditing}
         />
       )}
       <div className="task-header">
