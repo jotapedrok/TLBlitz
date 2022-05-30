@@ -1,5 +1,6 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, MouseEvent, useState } from 'react';
 import { Button, FormControl, InputGroup } from 'react-bootstrap';
+import { editTask } from '../../http/task';
 import './style.scss';
 
 interface props {
@@ -20,6 +21,11 @@ export default function EditTask({
     description: '',
     contente: '',
   });
+  const [savedFields, setSavedFields] = useState({
+    title: taskTitle,
+    description: taskDescription,
+    content: taskContent,
+  });
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -30,7 +36,13 @@ export default function EditTask({
     });
   };
 
-  // const saveTask
+  const saveTask = async (e: MouseEvent<HTMLElement>) => {
+    e.preventDefault();
+    const response = await editTask(taskId, savedFields);
+    if (response.error) {
+      console.log('error');
+    }
+  };
 
   return (
     <div className="edit-task">
@@ -84,7 +96,9 @@ export default function EditTask({
         </InputGroup>
       </div>
       <div className="edit-task-footer">
-        <Button variant="secondary">Save</Button>
+        <Button disabled={inputValues.title === ''} variant="secondary">
+          Save
+        </Button>
       </div>
     </div>
   );

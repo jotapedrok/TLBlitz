@@ -10,15 +10,6 @@ export async function createBlock(Block: IBlock) {
   }
 }
 
-export async function editBlcok(id: string, Fields: Partial<IBlock>) {
-  try {
-    const response = await api.patch(`/blocks/${id}`, Fields);
-    return response.data;
-  } catch (e) {
-    return { error: e };
-  }
-}
-
 export async function deleteBlock(id: string) {
   try {
     const response = await api.delete(`/blocks/${id}`);
