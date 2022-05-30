@@ -1,6 +1,9 @@
 import React, { ChangeEvent, MouseEvent, useEffect, useState } from 'react';
 import { Button, FormControl, InputGroup } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
 import { editTask } from '../../http/task';
+import { activeAlert, sendAlert } from '../../store/alert.store';
+import { IAlertProps } from '../AlertBox';
 import './style.scss';
 
 interface props {
@@ -27,6 +30,8 @@ export default function EditTask({
     content: '',
   });
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
     setSavedFields({
       title: taskTitle,
@@ -48,7 +53,13 @@ export default function EditTask({
     e.preventDefault();
     const response = await editTask(taskId, savedFields);
     if (response.error) {
-      console.log('error');
+      const alert: Partial<IAlertProps> = {
+        title: 'Error on edit:',
+        content: response.error,
+        hasButton: false,
+      };
+      dispatch(sendAlert(alert));
+      dispatch(activeAlert());
     }
   };
 
