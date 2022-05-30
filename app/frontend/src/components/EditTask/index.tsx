@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, FormControl, InputGroup } from 'react-bootstrap';
 import './style.scss';
 
 export default function EditTask() {
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [content, setContent] = useState('');
   return (
     <div className="edit-task">
       <div className="edit-task-x-btn">x</div>
@@ -38,6 +41,9 @@ export default function EditTask() {
           <InputGroup.Text id="basic-addon1">Save Icon</InputGroup.Text>
           <Button variant="light">x</Button>
         </InputGroup>
+      </div>
+      <div className="edit-task-footer">
+        <Button variant="secondary">Save</Button>
       </div>
     </div>
   );
