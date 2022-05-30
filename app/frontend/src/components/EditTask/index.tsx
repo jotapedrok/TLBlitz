@@ -2,7 +2,19 @@ import React, { ChangeEvent, useState } from 'react';
 import { Button, FormControl, InputGroup } from 'react-bootstrap';
 import './style.scss';
 
-export default function EditTask() {
+interface props {
+  taskId: string;
+  taskTitle: string;
+  taskDescription: string;
+  taskContent: string;
+}
+
+export default function EditTask({
+  taskId,
+  taskTitle,
+  taskDescription,
+  taskContent,
+}: props) {
   const [inputValues, setInputValues] = useState({
     title: '',
     description: '',
@@ -18,11 +30,13 @@ export default function EditTask() {
     });
   };
 
+  // const saveTask
+
   return (
     <div className="edit-task">
       <div className="edit-task-x-btn">x</div>
       <div className="edit-task-title-container">
-        <div className="edit-task-title-container-title">Title</div>
+        <div className="edit-task-title-container-title">{taskTitle}</div>
         <div className="edit-task-title-container-pen-btn">pen</div>
         <InputGroup>
           <FormControl
@@ -39,7 +53,7 @@ export default function EditTask() {
       </div>
       <div className="edit-task-description-container">
         <div className="edit-task-description-container-description">
-          Description
+          {taskDescription}
         </div>
         <div className="edit-task-description-container-pen-btn">pen</div>
         <InputGroup>
@@ -55,7 +69,7 @@ export default function EditTask() {
         </InputGroup>
       </div>
       <div className="edit-task-content-container">
-        <div className="edit-task-content-container-content">Content</div>
+        <div className="edit-task-content-container-content">{taskContent}</div>
         <div className="edit-task-content-container-pen-btn">pen</div>
         <InputGroup>
           <FormControl
