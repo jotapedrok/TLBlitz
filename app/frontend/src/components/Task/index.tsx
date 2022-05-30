@@ -10,6 +10,7 @@ interface props {
   createdBy: string;
   createdAt: number;
   taskDescription: string;
+  fetchTasks(): void;
 }
 
 export default function Task({
@@ -19,6 +20,7 @@ export default function Task({
   taskContent,
   createdBy,
   createdAt,
+  fetchTasks,
 }: Partial<props>) {
   const [open, setOpen] = useState(false);
   const createdDate = moment(createdAt).format('DD/MM/yyyy');

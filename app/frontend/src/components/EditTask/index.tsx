@@ -11,6 +11,7 @@ interface props {
   taskTitle: string;
   taskDescription: string;
   taskContent: string;
+  fetchTasks(): void;
 }
 
 export default function EditTask({
@@ -18,7 +19,9 @@ export default function EditTask({
   taskTitle,
   taskDescription,
   taskContent,
+  fetchTasks,
 }: props) {
+  const [canSave, setCanSave] = useState(false);
   const [inputValues, setInputValues] = useState({
     title: '',
     description: '',
@@ -60,12 +63,24 @@ export default function EditTask({
       };
       dispatch(sendAlert(alert));
       dispatch(activeAlert());
+    } else {
+      fetchTasks();
     }
   };
 
   return (
     <div className="edit-task">
-      <div className="edit-task-x-btn">x</div>
+      <div className="edit-task-x-btn">
+        <Button
+          onClick={e => {
+            e.preventDefault();
+            fetchTasks();
+          }}
+          variant="outline-secundary"
+        >
+          X
+        </Button>
+      </div>
       <div className="edit-task-title-container">
         <div className="edit-task-title-container-title">
           {savedFields.title}
@@ -156,6 +171,7 @@ export default function EditTask({
           onClick={saveTask}
           disabled={savedFields.title === ''}
           variant="secondary"
+          aria-disabled={canSave}
         >
           Save
         </Button>

@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { getTasks } from '../../http/task';
 import { ITask } from '../../interfaces/ITask.interface';
 import Task from '../Task';
 import './style.scss';
@@ -25,8 +26,23 @@ const initialTasks: ITask[] = [
   },
 ];
 
-export default function TaskList() {
+interface props {
+  blockId: string;
+}
+
+export default function TaskList({ blockId }: Partial<props>) {
   const [tasks, setTasks] = useState(initialTasks);
+  const fetchTasks = async () => {
+    const response = await getTasks(blockId || '');
+    if (response.error) {
+      console.log(response.erro);
+    } else {
+      setTasks(response.data);
+    }
+  };
+  useEffect(() => {
+    fetchTasks();
+  }, []);
   return (
     <div className="TaskList">
       {tasks.map((task: ITask) => (
@@ -37,6 +53,7 @@ export default function TaskList() {
           taskDescription={task.description}
           createdAt={task.criatedAt}
           createdBy={task.criatedBy}
+          fetchTasks={fetchTasks}
         />
       ))}
     </div>
