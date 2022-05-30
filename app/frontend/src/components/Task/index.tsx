@@ -1,9 +1,11 @@
 import moment from 'moment';
 import React, { useState } from 'react';
 import { Collapse } from 'react-bootstrap';
+import EditTask from '../EditTask';
 import './style.scss';
 
 interface props {
+  taskId: string;
   taskTitle: string;
   taskStatus: string;
   taskContent: string;
@@ -15,17 +17,28 @@ interface props {
 
 export default function Task({
   taskStatus,
+  taskId,
   taskTitle,
   taskDescription,
   taskContent,
   createdBy,
   createdAt,
   fetchTasks,
-}: Partial<props>) {
+}: props) {
   const [open, setOpen] = useState(false);
+  const [editing, setEditing] = useState(false);
   const createdDate = moment(createdAt).format('DD/MM/yyyy');
   return (
     <div className="task">
+      {editing && (
+        <EditTask
+          fetchTasks={fetchTasks}
+          taskContent={taskContent}
+          taskDescription={taskDescription}
+          taskId={taskId}
+          taskTitle={taskTitle}
+        />
+      )}
       <div className="task-header">
         <div className="task-header-title">{taskTitle}</div>
         <div className="task-header-status">{taskStatus}</div>
@@ -43,7 +56,14 @@ export default function Task({
           <button type="button" className="btn task-options-edit-status">
             Status
           </button>
-          <button type="button" className="btn task-options-edit-task">
+          <button
+            onClick={e => {
+              e.preventDefault();
+              setEditing(true);
+            }}
+            type="button"
+            className="btn task-options-edit-task"
+          >
             Task
           </button>
         </div>

@@ -47,6 +47,7 @@ export default function TaskList({ blockId }: Partial<props>) {
     <div className="TaskList">
       {tasks.map((task: ITask) => (
         <Task
+          taskId={task.id || ''}
           taskStatus={task.status}
           taskTitle={task.title}
           taskContent={task.content}
