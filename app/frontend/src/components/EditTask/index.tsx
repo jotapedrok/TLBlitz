@@ -1,5 +1,6 @@
 import React, { ChangeEvent, MouseEvent, useEffect, useState } from 'react';
 import { Button, FormControl, InputGroup } from 'react-bootstrap';
+import { BiPencil } from 'react-icons/bi';
 import { useDispatch } from 'react-redux';
 import { editTask } from '../../http/task';
 import { activeAlert, sendAlert } from '../../store/alert.store';
@@ -34,11 +35,21 @@ export default function EditTask({
     description: '',
     content: '',
   });
+  const [isEditing, setIsEditing] = useState({
+    title: false,
+    description: false,
+    content: false,
+  });
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     setSavedFields({
+      title: taskTitle,
+      description: taskDescription,
+      content: taskContent,
+    });
+    setInputValues({
       title: taskTitle,
       description: taskDescription,
       content: taskContent,
@@ -92,86 +103,98 @@ export default function EditTask({
         <div className="edit-task-title-container-title">
           {savedFields.title}
         </div>
-        <div className="edit-task-title-container-pen-btn">pen</div>
-        <InputGroup>
-          <FormControl
-            value={inputValues.title}
-            onChange={handleChange}
-            name="title"
-            placeholder="Task Title"
-            aria-label="task-title"
-            aria-describedby="basic-addon1"
-          />
-          <Button variant="light">x</Button>
-          <Button
-            variant="secundary"
-            onClick={e => {
-              e.preventDefault();
-              setSavedFields({
-                ...savedFields,
-                title: inputValues.title,
-              });
-            }}
-          >
-            Save
-          </Button>
-        </InputGroup>
+        <div className="edit-task-title-container-pen-btn">
+          <BiPencil />
+        </div>
+        {isEditing.title && (
+          <InputGroup>
+            <FormControl
+              value={inputValues.title}
+              onChange={handleChange}
+              name="title"
+              placeholder="Task Title"
+              aria-label="task-title"
+              aria-describedby="basic-addon1"
+            />
+            <Button variant="light">x</Button>
+            <Button
+              variant="secundary"
+              onClick={e => {
+                e.preventDefault();
+                setSavedFields({
+                  ...savedFields,
+                  title: inputValues.title,
+                });
+              }}
+            >
+              Save
+            </Button>
+          </InputGroup>
+        )}
       </div>
       <div className="edit-task-description-container">
         <div className="edit-task-description-container-description">
           {savedFields.description}
         </div>
-        <div className="edit-task-description-container-pen-btn">pen</div>
-        <InputGroup>
-          <FormControl
-            onChange={handleChange}
-            value={inputValues.description}
-            name="description"
-            as="textarea"
-            aria-label="description textarea"
-          />
-          <Button variant="light">x</Button>
-          <Button
-            variant="secundary"
-            onClick={e => {
-              e.preventDefault();
-              setSavedFields({
-                ...savedFields,
-                description: inputValues.description,
-              });
-            }}
-          >
-            Save
-          </Button>
-        </InputGroup>
+        <div className="edit-task-description-container-pen-btn">
+          <BiPencil />
+        </div>
+        {isEditing.description && (
+          <InputGroup>
+            <FormControl
+              onChange={handleChange}
+              value={inputValues.description}
+              name="description"
+              as="textarea"
+              aria-label="description textarea"
+            />
+            <Button variant="light">x</Button>
+            <Button
+              variant="secundary"
+              onClick={e => {
+                e.preventDefault();
+                setSavedFields({
+                  ...savedFields,
+                  description: inputValues.description,
+                });
+              }}
+            >
+              Save
+            </Button>
+          </InputGroup>
+        )}
       </div>
       <div className="edit-task-content-container">
         <div className="edit-task-content-container-content">
           {savedFields.content}
         </div>
-        <div className="edit-task-content-container-pen-btn">pen</div>
-        <InputGroup>
-          <FormControl
-            onChange={handleChange}
-            value={inputValues.content}
-            name="content"
-            as="textarea"
-            aria-label="content textarea"
-          />
-          <Button variant="light">x</Button>
-          <Button
-            variant="secundary"
-            onClick={e => {
-              e.preventDefault();
-              setSavedFields({
-                ...savedFields,
-                content: inputValues.content,
-              });
-            }}
-          >
-            Save
-          </Button>
-        </InputGroup>
+        <div className="edit-task-content-container-pen-btn">
+          <BiPencil />
+        </div>
+        {isEditing.content && (
+          <InputGroup>
+            <FormControl
+              onChange={handleChange}
+              value={inputValues.content}
+              name="content"
+              as="textarea"
+              aria-label="content textarea"
+            />
+            <Button variant="light">x</Button>
+            <Button
+              variant="secundary"
+              onClick={e => {
+                e.preventDefault();
+                setSavedFields({
+                  ...savedFields,
+                  content: inputValues.content,
+                });
+              }}
+            >
+              Save
+            </Button>
+          </InputGroup>
+        )}
       </div>
       <div className="edit-task-footer">
         <Button
