@@ -130,6 +130,7 @@ export default function EditTask({
             as="textarea"
             aria-label="description textarea"
           />
+          <Button variant="light">x</Button>
           <Button
             variant="secundary"
             onClick={e => {
@@ -142,7 +143,6 @@ export default function EditTask({
           >
             Save
           </Button>
-          <Button variant="light">x</Button>
         </InputGroup>
       </div>
       <div className="edit-task-content-container">
@@ -158,6 +158,7 @@ export default function EditTask({
             as="textarea"
             aria-label="content textarea"
           />
+          <Button variant="light">x</Button>
           <Button
             variant="secundary"
             onClick={e => {
@@ -170,7 +171,6 @@ export default function EditTask({
           >
             Save
           </Button>
-          <Button variant="light">x</Button>
         </InputGroup>
       </div>
       <div className="edit-task-footer">
