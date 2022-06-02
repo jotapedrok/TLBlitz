@@ -103,9 +103,20 @@ export default function EditTask({
         <div className="edit-task-title-container-title">
           {savedFields.title}
         </div>
-        <div className="edit-task-title-container-pen-btn">
+        <Button
+          onClick={e => {
+            e.preventDefault();
+            setIsEditing({
+              ...isEditing,
+              title: true,
+            });
+          }}
+          type="button"
+          variant="outline-secundary"
+          className="edit-task-title-container-pen-btn"
+        >
           <BiPencil />
-        </div>
+        </Button>
         {isEditing.title && (
           <InputGroup>
             <FormControl
@@ -116,7 +127,18 @@ export default function EditTask({
               aria-label="task-title"
               aria-describedby="basic-addon1"
             />
-            <Button variant="light">x</Button>
+            <Button
+              onClick={e => {
+                e.preventDefault();
+                setIsEditing({
+                  ...isEditing,
+                  title: false,
+                });
+              }}
+              variant="light"
+            >
+              x
+            </Button>
             <Button
               variant="secundary"
               onClick={e => {
@@ -136,9 +158,20 @@ export default function EditTask({
         <div className="edit-task-description-container-description">
           {savedFields.description}
         </div>
-        <div className="edit-task-description-container-pen-btn">
+        <Button
+          onClick={e => {
+            e.preventDefault();
+            setIsEditing({
+              ...isEditing,
+              description: true,
+            });
+          }}
+          type="button"
+          variant="outline-secundary"
+          className="edit-task-description-container-pen-btn"
+        >
           <BiPencil />
-        </div>
+        </Button>
         {isEditing.description && (
           <InputGroup>
             <FormControl
@@ -148,7 +181,18 @@ export default function EditTask({
               as="textarea"
               aria-label="description textarea"
             />
-            <Button variant="light">x</Button>
+            <Button
+              onClick={e => {
+                e.preventDefault();
+                setIsEditing({
+                  ...isEditing,
+                  description: false,
+                });
+              }}
+              variant="light"
+            >
+              x
+            </Button>
             <Button
               variant="secundary"
               onClick={e => {
@@ -168,9 +212,20 @@ export default function EditTask({
         <div className="edit-task-content-container-content">
           {savedFields.content}
         </div>
-        <div className="edit-task-content-container-pen-btn">
+        <Button
+          onClick={e => {
+            e.preventDefault();
+            setIsEditing({
+              ...isEditing,
+              content: true,
+            });
+          }}
+          type="button"
+          variant="outline-secundary"
+          className="edit-task-content-container-pen-btn"
+        >
           <BiPencil />
-        </div>
+        </Button>
         {isEditing.content && (
           <InputGroup>
             <FormControl
@@ -180,7 +235,18 @@ export default function EditTask({
               as="textarea"
               aria-label="content textarea"
             />
-            <Button variant="light">x</Button>
+            <Button
+              onClick={e => {
+                e.preventDefault();
+                setIsEditing({
+                  ...isEditing,
+                  content: false,
+                });
+              }}
+              variant="light"
+            >
+              x
+            </Button>
             <Button
               variant="secundary"
               onClick={e => {
