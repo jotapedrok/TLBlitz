@@ -120,7 +120,7 @@ export default function EditTask({
           </div>
         )}
         {isEditing.title && (
-          <InputGroup>
+          <InputGroup className="editing-field">
             <FormControl
               value={inputValues.title}
               onChange={handleChange}
@@ -177,7 +177,7 @@ export default function EditTask({
           </div>
         )}
         {isEditing.description && (
-          <InputGroup>
+          <InputGroup className="editing-field">
             <FormControl
               onChange={handleChange}
               value={inputValues.description}
@@ -233,7 +233,7 @@ export default function EditTask({
           </div>
         )}
         {isEditing.content && (
-          <InputGroup>
+          <InputGroup className="editing-field">
             <FormControl
               onChange={handleChange}
               value={inputValues.content}
