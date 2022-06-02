@@ -100,23 +100,25 @@ export default function EditTask({
         </Button>
       </div>
       <div className="edit-task-title-container">
-        <div className="edit-task-title-container-title">
-          {savedFields.title}
-        </div>
-        <Button
-          onClick={e => {
-            e.preventDefault();
-            setIsEditing({
-              ...isEditing,
-              title: true,
-            });
-          }}
-          type="button"
-          variant="outline-secundary"
-          className="edit-task-title-container-pen-btn"
-        >
-          <BiPencil />
-        </Button>
+        {isEditing.title || (
+          <div className="edit-task-title-container-title field">
+            <h5>{savedFields.title}</h5>
+            <Button
+              onClick={e => {
+                e.preventDefault();
+                setIsEditing({
+                  ...isEditing,
+                  title: true,
+                });
+              }}
+              type="button"
+              variant="outline-secundary"
+              className="edit-task-title-container-pen-btn"
+            >
+              <BiPencil />
+            </Button>
+          </div>
+        )}
         {isEditing.title && (
           <InputGroup>
             <FormControl
@@ -155,23 +157,25 @@ export default function EditTask({
         )}
       </div>
       <div className="edit-task-description-container">
-        <div className="edit-task-description-container-description">
-          {savedFields.description}
-        </div>
-        <Button
-          onClick={e => {
-            e.preventDefault();
-            setIsEditing({
-              ...isEditing,
-              description: true,
-            });
-          }}
-          type="button"
-          variant="outline-secundary"
-          className="edit-task-description-container-pen-btn"
-        >
-          <BiPencil />
-        </Button>
+        {isEditing.description || (
+          <div className="edit-task-description-container-description field">
+            <h6>{savedFields.description}</h6>
+            <Button
+              onClick={e => {
+                e.preventDefault();
+                setIsEditing({
+                  ...isEditing,
+                  description: true,
+                });
+              }}
+              type="button"
+              variant="outline-secundary"
+              className="edit-task-description-container-pen-btn"
+            >
+              <BiPencil />
+            </Button>
+          </div>
+        )}
         {isEditing.description && (
           <InputGroup>
             <FormControl
@@ -209,23 +213,25 @@ export default function EditTask({
         )}
       </div>
       <div className="edit-task-content-container">
-        <div className="edit-task-content-container-content">
-          {savedFields.content}
-        </div>
-        <Button
-          onClick={e => {
-            e.preventDefault();
-            setIsEditing({
-              ...isEditing,
-              content: true,
-            });
-          }}
-          type="button"
-          variant="outline-secundary"
-          className="edit-task-content-container-pen-btn"
-        >
-          <BiPencil />
-        </Button>
+        {isEditing.content || (
+          <div className="edit-task-content-container-content field">
+            <h6>{savedFields.content}</h6>
+            <Button
+              onClick={e => {
+                e.preventDefault();
+                setIsEditing({
+                  ...isEditing,
+                  content: true,
+                });
+              }}
+              type="button"
+              variant="outline-secundary"
+              className="edit-task-content-container-pen-btn"
+            >
+              <BiPencil />
+            </Button>
+          </div>
+        )}
         {isEditing.content && (
           <InputGroup>
             <FormControl
