@@ -1,12 +1,19 @@
-import React, { MouseEvent, MouseEventHandler, useState } from 'react';
-import { Button, FormControl, FormSelect, InputGroup } from 'react-bootstrap';
+import React, {
+  MouseEvent, MouseEventHandler, useEffect, useState,
+} from 'react';
+import {
+  Button, FormControl, FormSelect, InputGroup,
+} from 'react-bootstrap';
 import { BiPlus } from 'react-icons/bi';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 import AddBlockForm from '../../components/AddBlockForm';
 import { IAlertProps } from '../../components/AlertBox';
 import TaskBlock from '../../components/TaskBlock';
-import { createBlock } from '../../http/block';
+import { createBlock, getBlocks } from '../../http/block';
+import { IBlock } from '../../interfaces/IBlock.interface';
+import { blocksMock } from '../../mocks/blocksMock';
+// import { RootState } from '../../store';
 import {
   activeAlert,
   desativeAlert,
@@ -22,13 +29,48 @@ export interface IAddBlockFormFields {
 
 export default function Home() {
   const [blockFormOpen, setBlockFormOpen] = useState(false);
+  const [blocks, setBlocks] = useState<IBlock[]>([]);
   const [success, setSuccess] = useState('');
   const dispatch = useDispatch();
+
+  // const user = useSelector((s: RootState) => s.user.user);
 
   const toggleStateAddForm: MouseEventHandler = (e: MouseEvent) => {
     e.preventDefault();
     setBlockFormOpen(!blockFormOpen);
   };
+
+  const fetchBlocks = async () => {
+    // const response = await getBlocks(user.id);
+    const response = { data: blocksMock, error: false };
+    if (response.error) {
+      const alert: IAlertProps = {
+        hasButton: true,
+        title: 'Error on server',
+        content: 'response.error',
+        buttons: [
+          {
+            id: uuidv4(),
+            text: 'Ok',
+            variant: 'secondary',
+            onClick: (e) => {
+              e.preventDefault();
+              dispatch(desativeAlert());
+              dispatch(resetAlert());
+            },
+          },
+        ],
+      };
+      dispatch(sendAlert(alert));
+      dispatch(activeAlert());
+    } else {
+      setBlocks(response.data);
+    }
+  };
+
+  useEffect(() => {
+    fetchBlocks();
+  }, []);
 
   const submitBlock = async (formFields: IAddBlockFormFields) => {
     const { blockName, blockThumb } = formFields;
@@ -46,7 +88,7 @@ export default function Home() {
             id: uuidv4(),
             text: 'Ok',
             variant: 'primary',
-            onClick: e => {
+            onClick: (e) => {
               e.preventDefault();
               dispatch(desativeAlert());
               dispatch(resetAlert());
@@ -66,29 +108,31 @@ export default function Home() {
   };
 
   return (
-    <div className='home-page'>
-      <div className='home-page-content'>
-        <div className='title-one'>
+    <div className="home-page">
+      <div className="home-page-content">
+        <div className="title-one">
           <h4>Your Blocks:</h4>
         </div>
-        <div className='filter-bar-container'>
-          <InputGroup className='mb-3'>
+        <div className="filter-bar-container">
+          <InputGroup className="mb-3">
             <FormControl
-              aria-label='filter-by-name'
-              placeholder='Filter Block Name'
+              aria-label="filter-by-name"
+              placeholder="Filter Block Name"
             />
             <FormSelect>
-              <option value='all'>All</option>
-              <option value='alone'>Alone</option>
-              <option value='group'>Group</option>
+              <option value="all">All</option>
+              <option value="alone">Alone</option>
+              <option value="group">Group</option>
             </FormSelect>
           </InputGroup>
         </div>
-        <div className='block-list'>
-          <TaskBlock id='testId' name='test' group={false} />
+        <div className="block-list">
+          {blocks.map((b) => (
+            <TaskBlock id={b.id} name={b.name} thumb={b.thumbnail} group={b.group} />
+          ))}
         </div>
-        <div className='create-block-button-container'>
-          <Button type='button' onClick={toggleStateAddForm}>
+        <div className="create-block-button-container">
+          <Button type="button" onClick={toggleStateAddForm}>
             <BiPlus />
           </Button>
         </div>

@@ -2,33 +2,39 @@ import React, { useState } from 'react';
 import { Card } from 'react-bootstrap';
 import { MdGroup, MdPerson } from 'react-icons/md';
 import { BsThreeDotsVertical } from 'react-icons/bs';
-import { ITaskBlockProps } from '../../interfaces/ITaskBlockProps.interface';
 import './style.scss';
 import BlockOptions from './BlockOptions';
+
+interface props {
+  thumb: string;
+  name: string;
+  group: boolean;
+  id: string;
+}
 
 export default function TaskBlock({
   thumb,
   id,
   name,
-  group = false,
-}: ITaskBlockProps) {
+  group,
+}: Partial<props>) {
   const [optionsOpen, setOptionsOpen] = useState(false);
   return (
-    <div className='TaskBlock' style={{ width: 200, height: 200 }}>
-      {optionsOpen && <BlockOptions id={id} setOptionsOpen={setOptionsOpen} />}
+    <div className="TaskBlock" style={{ width: 200, height: 200 }}>
+      {optionsOpen && <BlockOptions id={id || ''} setOptionsOpen={setOptionsOpen} />}
       <Card>
         <Card.Img
-          variant='top'
+          variant="top"
           src={thumb || 'https://via.placeholder.com/200'}
         />
         <Card.ImgOverlay>
           <button
-            onClick={e => {
+            onClick={(e) => {
               e.preventDefault();
               setOptionsOpen(!optionsOpen);
             }}
-            className='btn'
-            type='button'
+            className="btn"
+            type="button"
           >
             <BsThreeDotsVertical />
           </button>

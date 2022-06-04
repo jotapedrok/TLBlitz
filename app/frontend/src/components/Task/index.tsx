@@ -1,12 +1,12 @@
-import moment from "moment";
-import React, { useEffect, useState } from "react";
-import { Button, Collapse } from "react-bootstrap";
-import EditTask from "../EditTask";
-import { changeStatus, getStatus } from "../../http/status";
-import "./style.scss";
-import { ITask } from "../../interfaces/ITask.interface";
-import { IStatus } from "../../interfaces/IStatus.interface";
-import StatusOptions from "../StatusOptions";
+import moment from 'moment';
+import React, { useEffect, useState } from 'react';
+import { Button, Collapse } from 'react-bootstrap';
+import EditTask from '../EditTask';
+// import { changeStatus, getStatus } from '../../http/status';
+import './style.scss';
+import { ITask } from '../../interfaces/ITask.interface';
+import { IStatus } from '../../interfaces/IStatus.interface';
+import StatusOptions from '../StatusOptions';
 
 interface props {
   task: ITask;
@@ -18,35 +18,39 @@ export default function Task({ task: recivedTask, fetchTasks }: props) {
   const [editing, setEditing] = useState(false);
   const [editingStatus, setEditingStatus] = useState(false);
   const [task, setTask] = useState<ITask>({
-    title: "",
-    content: "",
-    description: "",
-    criatedBy: "",
-    status: "Pendente",
+    title: '',
+    content: '',
+    description: '',
+    criatedBy: '',
+    status: 'Pendente',
     criatedAt: Number(moment().valueOf()),
   });
   const [status, setStatus] = useState<IStatus[]>([
-    { status: "Pendente", id: "1" },
-    { status: "Em Andamento", id: "2" },
-    { status: "Pronto", id: "3" },
+    { status: 'Pendente', id: '1' },
+    { status: 'Em Andamento', id: '2' },
+    { status: 'Pronto', id: '3' },
   ]);
 
   const fetchStatus = async () => {
-    const response = await getStatus();
-    if (!response.error) {
-      setStatus(response);
-    }
+    // const response = await getStatus();
+    const response = [{ status: 'Pendente', id: '1' },
+      { status: 'Em Andamento', id: '2' },
+      { status: 'Pronto', id: '3' }];
+    // if (!response.error) {
+    //
+    // }
+    setStatus(response);
   };
 
   const selectStatus = async ({
     status: recivdStatus,
-    id: statusId,
+    // id: statusId,
   }: IStatus) => {
     setTask({
       ...task,
       status: recivdStatus,
     });
-    await changeStatus(statusId);
+    // await changeStatus(statusId);
     setEditingStatus(false);
   };
 
@@ -57,7 +61,7 @@ export default function Task({ task: recivedTask, fetchTasks }: props) {
     }
   }, []);
 
-  const createdDate = moment(task.criatedAt).format("DD/MM/yyyy");
+  const createdDate = moment(task.criatedAt).format('DD/MM/yyyy');
   return (
     <div className="task">
       {editing && (
@@ -65,7 +69,7 @@ export default function Task({ task: recivedTask, fetchTasks }: props) {
           fetchTasks={fetchTasks}
           taskContent={task.content}
           taskDescription={task.description}
-          taskId={task.id || ""}
+          taskId={task.id || ''}
           taskTitle={task.title}
           setEditing={setEditing}
         />

@@ -10,6 +10,15 @@ export async function createBlock(Block: IBlock) {
   }
 }
 
+export async function getBlocks(userId: string) {
+  try {
+    const response = await api.get(`/blocks/${userId}`);
+    return response.data;
+  } catch (e) {
+    return { error: e };
+  }
+}
+
 export async function deleteBlock(id: string) {
   try {
     const response = await api.delete(`/blocks/${id}`);
@@ -22,7 +31,7 @@ export async function deleteBlock(id: string) {
 export async function removeUser(userId: string, blockId: string) {
   try {
     const response = await api.delete(
-      `/blocks/delete-user/${userId}/${blockId}`
+      `/blocks/delete-user/${userId}/${blockId}`,
     );
     return response.data;
   } catch (e) {

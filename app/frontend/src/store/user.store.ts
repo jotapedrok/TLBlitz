@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { IUser } from '../interfaces/IUser.interface';
 
 const user = createSlice({
   name: 'user',
@@ -6,6 +7,12 @@ const user = createSlice({
   initialState: {
     token: '',
     isAuth: false,
+    user: {
+      username: '',
+      email: '',
+      role: '',
+      id: '',
+    },
   },
 
   reducers: {
@@ -22,6 +29,10 @@ const user = createSlice({
     authenticate(state, { payload }) {
       state.isAuth = true;
       state.token = payload;
+    },
+
+    setUser(state, { payload }) {
+      state.user = payload;
     },
   },
 });
