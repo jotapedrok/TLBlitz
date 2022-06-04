@@ -1,6 +1,6 @@
 version: '3.9'
 services:
-frontend:
+  frontend:
     container_name: TLBlitz_Front
     build: ./frontend
     depends_on:
