@@ -7,6 +7,8 @@ const block = createSlice({
     block: {
       id: '',
       name: '',
+      thumbnail: '',
+      group: false,
     },
   },
 

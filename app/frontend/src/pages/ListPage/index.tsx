@@ -5,7 +5,7 @@ import { RootState } from '../../store';
 import './style.scss';
 
 export default function ListPage() {
-  const block = useSelector((s: RootState) => s.block.block);
+  const { block } = useSelector((s: RootState) => s.block);
   return (
     <div className="list-page">
       <div className="list-page-header">
