@@ -15,7 +15,7 @@ export default function StatusOptions({ status, selectStatus }: props) {
         <Button
           onClick={e => {
             e.preventDefault();
-            selectStatus(e);
+            selectStatus(s);
           }}
           key={`${s.id}_status_key`}
           type="button"
