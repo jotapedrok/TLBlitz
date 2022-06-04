@@ -6,6 +6,7 @@ import {
 } from 'react-bootstrap';
 import { BiPlus } from 'react-icons/bi';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import AddBlockForm from '../../components/AddBlockForm';
 import { IAlertProps } from '../../components/AlertBox';
@@ -20,6 +21,7 @@ import {
   resetAlert,
   sendAlert,
 } from '../../store/alert.store';
+import { setBlock } from '../../store/block.store';
 import './style.scss';
 
 export interface IAddBlockFormFields {
@@ -32,6 +34,7 @@ export default function Home() {
   const [blocks, setBlocks] = useState<IBlock[]>([]);
   const [success, setSuccess] = useState('');
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   // const user = useSelector((s: RootState) => s.user.user);
 
@@ -39,38 +42,6 @@ export default function Home() {
     e.preventDefault();
     setBlockFormOpen(!blockFormOpen);
   };
-
-  const fetchBlocks = async () => {
-    // const response = await getBlocks(user.id);
-    const response = { data: blocksMock, error: false };
-    if (response.error) {
-      const alert: IAlertProps = {
-        hasButton: true,
-        title: 'Error on server',
-        content: 'response.error',
-        buttons: [
-          {
-            id: uuidv4(),
-            text: 'Ok',
-            variant: 'secondary',
-            onClick: (e) => {
-              e.preventDefault();
-              dispatch(desativeAlert());
-              dispatch(resetAlert());
-            },
-          },
-        ],
-      };
-      dispatch(sendAlert(alert));
-      dispatch(activeAlert());
-    } else {
-      setBlocks(response.data);
-    }
-  };
-
-  useEffect(() => {
-    fetchBlocks();
-  }, []);
 
   const submitBlock = async (formFields: IAddBlockFormFields) => {
     const { blockName, blockThumb } = formFields;
@@ -107,6 +78,43 @@ export default function Home() {
     }
   };
 
+  const fetchBlocks = async () => {
+    // const response = await getBlocks(user.id);
+    const response = { data: blocksMock, error: false };
+    if (response.error) {
+      const alert: IAlertProps = {
+        hasButton: true,
+        title: 'Error on server',
+        content: 'response.error',
+        buttons: [
+          {
+            id: uuidv4(),
+            text: 'Ok',
+            variant: 'secondary',
+            onClick: (e) => {
+              e.preventDefault();
+              dispatch(desativeAlert());
+              dispatch(resetAlert());
+            },
+          },
+        ],
+      };
+      dispatch(sendAlert(alert));
+      dispatch(activeAlert());
+    } else {
+      setBlocks(response.data);
+    }
+  };
+
+  const onClickBlock = (block: IBlock) => {
+    dispatch(setBlock(block));
+    navigate('/list');
+  };
+
+  useEffect(() => {
+    fetchBlocks();
+  }, []);
+
   return (
     <div className="home-page">
       <div className="home-page-content">
@@ -128,7 +136,16 @@ export default function Home() {
         </div>
         <div className="block-list">
           {blocks.map((b) => (
-            <TaskBlock id={b.id} name={b.name} thumb={b.thumbnail} group={b.group} />
+            <Button
+              onClick={(e) => {
+                e.preventDefault();
+                onClickBlock(b);
+              }}
+              type="button"
+              variant="light"
+            >
+              <TaskBlock id={b.id} name={b.name} thumb={b.thumbnail} group={b.group} />
+            </Button>
           ))}
         </div>
         <div className="create-block-button-container">

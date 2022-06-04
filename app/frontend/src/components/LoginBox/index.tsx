@@ -46,24 +46,24 @@ export default function LoginBox() {
   };
   return (
     <div>
-      <div className='input-conteiners container'>
+      <div className="input-conteiners container">
         <Form>
-          <FormGroup className='mb-3' controlId='formBasicEmail'>
+          <FormGroup className="mb-3" controlId="formBasicEmail">
             <FormLabel>Email</FormLabel>
             <FormControl
               onChange={emailChange}
-              type='email'
-              placeholder='Enter email'
+              type="email"
+              placeholder="Enter email"
             />
           </FormGroup>
         </Form>
         <Form>
-          <FormGroup className='mb-3' controlId='Password'>
+          <FormGroup className="mb-3" controlId="Password">
             <FormLabel>Password</FormLabel>
             <FormControl
               onChange={passwordChange}
-              type='password'
-              placeholder='Password'
+              type="password"
+              placeholder="Password"
             />
           </FormGroup>
         </Form>
@@ -72,17 +72,17 @@ export default function LoginBox() {
         )}
         <Button
           onSubmit={() => onSubmit(email, password)}
-          variant='primary'
-          type='submit'
+          variant="primary"
+          type="submit"
         >
           Enter
         </Button>
         <Button
-          onClick={e => {
+          onClick={(e) => {
             e.preventDefault();
             navigate('/sign-in');
           }}
-          variant='secondary'
+          variant="secondary"
         >
           Sign In
         </Button>

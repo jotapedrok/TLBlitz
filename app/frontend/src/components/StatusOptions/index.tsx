@@ -1,7 +1,7 @@
-import React from "react";
-import { Button } from "react-bootstrap";
-import { IStatus } from "../../interfaces/IStatus.interface";
-import "./style.scss";
+import React from 'react';
+import { Button } from 'react-bootstrap';
+import { IStatus } from '../../interfaces/IStatus.interface';
+import './style.scss';
 
 interface props {
   status: IStatus[];

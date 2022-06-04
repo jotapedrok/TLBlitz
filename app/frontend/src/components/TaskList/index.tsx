@@ -17,38 +17,39 @@ interface props {
   blockId: string;
 }
 
-export default function TaskList({ blockId }: Partial<props>) {
+export default function TaskList({ blockId }: props) {
   const [tasks, setTasks] = useState<ITask[]>([]);
   const dispatch = useDispatch();
   const fetchTasks = async () => {
     // const response = await getTasks(blockId || '');
-    const response = { error: false, data: tasksMock };
-    if (response.error) {
-      const alert: IAlertProps = {
-        hasButton: true,
-        title: 'Error on server',
-        content: 'response.error',
-        buttons: [
-          {
-            id: '7',
-            text: 'Ok',
-            variant: 'secondary',
-            onClick: (e) => {
-              e.preventDefault();
-              dispatch(desativeAlert());
-              dispatch(resetAlert());
-            },
-          },
-        ],
-      };
-      dispatch(sendAlert(alert));
-      dispatch(activeAlert());
-    } else {
-      setTasks(response.data);
-    }
+    const response = tasksMock;
+    // if (response.error) {
+    //   const alert: IAlertProps = {
+    //     hasButton: true,
+    //     title: 'Error on server',
+    //     content: 'response.error',
+    //     buttons: [
+    //       {
+    //         id: '7',
+    //         text: 'Ok',
+    //         variant: 'secondary',
+    //         onClick: (e) => {
+    //           e.preventDefault();
+    //           dispatch(desativeAlert());
+    //           dispatch(resetAlert());
+    //         },
+    //       },
+    //     ],
+    //   };
+    //   dispatch(sendAlert(alert));
+    //   dispatch(activeAlert());
+    // } else {
+    //   setTasks(response.data);
+    // }
+    setTasks(response);
   };
   useEffect(() => {
-    // fetchTasks();
+    fetchTasks();
   }, []);
   return (
     <div className="task-list">
