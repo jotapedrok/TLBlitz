@@ -136,6 +136,10 @@ export default function EditTask({
                   ...isEditing,
                   title: false,
                 });
+                setInputValues({
+                  ...inputValues,
+                  title: savedFields.title,
+                });
               }}
               variant="light"
             >
@@ -148,6 +152,10 @@ export default function EditTask({
                 setSavedFields({
                   ...savedFields,
                   title: inputValues.title,
+                });
+                setIsEditing({
+                  ...isEditing,
+                  title: false,
                 });
               }}
             >
@@ -192,6 +200,10 @@ export default function EditTask({
                   ...isEditing,
                   description: false,
                 });
+                setInputValues({
+                  ...inputValues,
+                  description: savedFields.description,
+                });
               }}
               variant="light"
             >
@@ -204,6 +216,10 @@ export default function EditTask({
                 setSavedFields({
                   ...savedFields,
                   description: inputValues.description,
+                });
+                setIsEditing({
+                  ...isEditing,
+                  description: false,
                 });
               }}
             >
@@ -248,6 +264,10 @@ export default function EditTask({
                   ...isEditing,
                   content: false,
                 });
+                setInputValues({
+                  ...inputValues,
+                  content: savedFields.content,
+                });
               }}
               variant="light"
             >
@@ -260,6 +280,10 @@ export default function EditTask({
                 setSavedFields({
                   ...savedFields,
                   content: inputValues.content,
+                });
+                setIsEditing({
+                  ...isEditing,
+                  content: false,
                 });
               }}
             >
