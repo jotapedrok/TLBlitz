@@ -1,7 +1,8 @@
 import moment from 'moment';
-import React, { useState } from 'react';
-import { Collapse } from 'react-bootstrap';
+import React, { useEffect, useState } from 'react';
+import { Button, Collapse } from 'react-bootstrap';
 import EditTask from '../EditTask';
+import { getStatus } from '../../http/status';
 import './style.scss';
 
 interface props {
@@ -27,6 +28,19 @@ export default function Task({
 }: props) {
   const [open, setOpen] = useState(false);
   const [editing, setEditing] = useState(false);
+  const [status, setStatus] = useState(['pendente', 'em andamento', 'pronto']);
+
+  const fetchStatus = async () => {
+    const response = await getStatus();
+    if (!response.error) {
+      setStatus(response);
+    }
+  };
+
+  useEffect(() => {
+    fetchStatus();
+  }, []);
+
   const createdDate = moment(createdAt).format('DD/MM/yyyy');
   return (
     <div className="task">
@@ -42,7 +56,16 @@ export default function Task({
       )}
       <div className="task-header">
         <div className="task-header-title">{taskTitle}</div>
-        <div className="task-header-status">{taskStatus}</div>
+        <Button
+          onClick={e => {
+            e.preventDefault();
+          }}
+          type="button"
+          variant="light"
+          className="task-header-status"
+        >
+          {taskStatus}
+        </Button>
       </div>
       <div className="task-description">{taskDescription}</div>
       <div className="task-options">
@@ -51,21 +74,15 @@ export default function Task({
           <p className="task-options-info-created-at">{createdDate}</p>
         </div>
         <div className="task-options-edit">
-          <button type="button" className="btn task-options-edit-btn">
-            edit
-          </button>
-          <button type="button" className="btn task-options-edit-status">
-            Status
-          </button>
           <button
             onClick={e => {
               e.preventDefault();
               setEditing(true);
             }}
             type="button"
-            className="btn task-options-edit-task"
+            className="btn task-options-edit-btn"
           >
-            Task
+            edit
           </button>
         </div>
         <button

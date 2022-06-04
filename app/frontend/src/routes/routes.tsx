@@ -11,9 +11,8 @@ export default function Router() {
       <Route path="/login" element={<Login />} />
       <Route path="/sign-in" element={<SignInForm />} />
       <Route path="/list" element={<ListPage />} />
-      <Route element={<ProtectedRoute />}>
-        <Route path="/" element={<Home />} />
-      </Route>
+      <Route path="/" element={<Home />} />
+      {/* <Route element={<ProtectedRoute />}></Route> */}
     </Routes>
   );
 }

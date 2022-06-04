@@ -17,6 +17,7 @@ const content =
 
 const initialTasks: ITask[] = [
   {
+    id: '1',
     title: 'Title 1',
     content,
     description: 'qualquer descri',
@@ -25,6 +26,7 @@ const initialTasks: ITask[] = [
     status: 'coisado',
   },
   {
+    id: '2',
     title: 'Title 2',
     content,
     description: 'qualquer descri 2',
@@ -68,21 +70,23 @@ export default function TaskList({ blockId }: Partial<props>) {
     }
   };
   useEffect(() => {
-    fetchTasks();
+    // fetchTasks();
   }, []);
   return (
-    <div className="TaskList">
+    <div className="task-list">
       {tasks.map((task: ITask) => (
-        <Task
-          taskId={task.id || ''}
-          taskStatus={task.status}
-          taskTitle={task.title}
-          taskContent={task.content}
-          taskDescription={task.description}
-          createdAt={task.criatedAt}
-          createdBy={task.criatedBy}
-          fetchTasks={fetchTasks}
-        />
+        <div key={task.id} className="task-container">
+          <Task
+            taskId={task.id || ''}
+            taskStatus={task.status}
+            taskTitle={task.title}
+            taskContent={task.content}
+            taskDescription={task.description}
+            createdAt={task.criatedAt}
+            createdBy={task.criatedBy}
+            fetchTasks={fetchTasks}
+          />
+        </div>
       ))}
     </div>
   );
