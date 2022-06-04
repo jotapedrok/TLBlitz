@@ -24,5 +24,5 @@ export default function ProtectedRoute() {
     authorization();
   }, []);
 
-  return isAuth ? <Outlet /> : <Navigate to="/login" />;
+  return isAuth ? <Outlet /> : <Navigate to='/login' />;
 }

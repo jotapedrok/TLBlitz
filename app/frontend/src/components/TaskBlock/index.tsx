@@ -14,11 +14,11 @@ export default function TaskBlock({
 }: ITaskBlockProps) {
   const [optionsOpen, setOptionsOpen] = useState(false);
   return (
-    <div className="TaskBlock" style={{ width: 200, height: 200 }}>
+    <div className='TaskBlock' style={{ width: 200, height: 200 }}>
       {optionsOpen && <BlockOptions id={id} setOptionsOpen={setOptionsOpen} />}
       <Card>
         <Card.Img
-          variant="top"
+          variant='top'
           src={thumb || 'https://via.placeholder.com/200'}
         />
         <Card.ImgOverlay>
@@ -27,8 +27,8 @@ export default function TaskBlock({
               e.preventDefault();
               setOptionsOpen(!optionsOpen);
             }}
-            className="btn"
-            type="button"
+            className='btn'
+            type='button'
           >
             <BsThreeDotsVertical />
           </button>

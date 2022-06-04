@@ -1,35 +1,35 @@
-import moment from 'moment';
-import React, { useEffect, useState } from 'react';
-import { Button, Collapse } from 'react-bootstrap';
-import EditTask from '../EditTask';
-import { getStatus } from '../../http/status';
-import './style.scss';
+import moment from "moment";
+import React, { useEffect, useState } from "react";
+import { Button, Collapse } from "react-bootstrap";
+import EditTask from "../EditTask";
+import { changeStatus, getStatus } from "../../http/status";
+import "./style.scss";
+import { ITask } from "../../interfaces/ITask.interface";
+import { IStatus } from "../../interfaces/IStatus.interface";
+import StatusOptions from "../StatusOptions";
 
 interface props {
-  taskId: string;
-  taskTitle: string;
-  taskStatus: string;
-  taskContent: string;
-  createdBy: string;
-  createdAt: number;
-  taskDescription: string;
+  task: ITask;
   fetchTasks(): void;
 }
 
-export default function Task({
-  taskStatus,
-  taskId,
-  taskTitle,
-  taskDescription,
-  taskContent,
-  createdBy,
-  createdAt,
-  fetchTasks,
-}: props) {
+export default function Task({ task: recivedTask, fetchTasks }: props) {
   const [open, setOpen] = useState(false);
   const [editing, setEditing] = useState(false);
   const [editingStatus, setEditingStatus] = useState(false);
-  const [status, setStatus] = useState(['pendente', 'em andamento', 'pronto']);
+  const [task, setTask] = useState<ITask>({
+    title: "",
+    content: "",
+    description: "",
+    criatedBy: "",
+    status: "Pendente",
+    criatedAt: Number(moment().valueOf()),
+  });
+  const [status, setStatus] = useState<IStatus[]>([
+    { status: "Pendente", id: "1" },
+    { status: "Em Andamento", id: "2" },
+    { status: "Pronto", id: "3" },
+  ]);
 
   const fetchStatus = async () => {
     const response = await getStatus();
@@ -38,45 +38,64 @@ export default function Task({
     }
   };
 
+  const selectStatus = async ({
+    status: recivdStatus,
+    id: statusId,
+  }: IStatus) => {
+    setTask({
+      ...task,
+      status: recivdStatus,
+    });
+    await changeStatus(statusId);
+    setEditingStatus(false);
+  };
+
   useEffect(() => {
     fetchStatus();
+    if (recivedTask) {
+      setTask(recivedTask);
+    }
   }, []);
 
-  const createdDate = moment(createdAt).format('DD/MM/yyyy');
+  const createdDate = moment(task.criatedAt).format("DD/MM/yyyy");
   return (
     <div className="task">
       {editing && (
         <EditTask
           fetchTasks={fetchTasks}
-          taskContent={taskContent}
-          taskDescription={taskDescription}
-          taskId={taskId}
-          taskTitle={taskTitle}
+          taskContent={task.content}
+          taskDescription={task.description}
+          taskId={task.id || ""}
+          taskTitle={task.title}
           setEditing={setEditing}
         />
       )}
       <div className="task-header">
-        <div className="task-header-title">{taskTitle}</div>
+        <div className="task-header-title">{task.title}</div>
         <Button
-          onClick={e => {
+          onClick={(e) => {
             e.preventDefault();
+            setEditingStatus(true);
           }}
           type="button"
           variant="light"
           className="task-header-status"
         >
-          {taskStatus}
+          {task.status}
         </Button>
+        {editingStatus && (
+          <StatusOptions status={status} selectStatus={selectStatus} />
+        )}
       </div>
-      <div className="task-description">{taskDescription}</div>
+      <div className="task-description">{task.description}</div>
       <div className="task-options">
         <div className="taks-options-info">
-          <p className="task-options-info-creator">{createdBy}</p>
+          <p className="task-options-info-creator">{task.criatedBy}</p>
           <p className="task-options-info-created-at">{createdDate}</p>
         </div>
         <div className="task-options-edit">
           <button
-            onClick={e => {
+            onClick={(e) => {
               e.preventDefault();
               setEditing(true);
             }}
@@ -97,7 +116,7 @@ export default function Task({
         </button>
       </div>
       <Collapse in={open}>
-        <div className="task-content">{taskContent}</div>
+        <div className="task-content">{task.content}</div>
       </Collapse>
     </div>
   );

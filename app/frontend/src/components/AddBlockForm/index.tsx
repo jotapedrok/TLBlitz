@@ -57,41 +57,41 @@ export default function AddBlockForm({ onSubmit, close }: props) {
     });
   };
   return (
-    <div className="add-block-form">
+    <div className='add-block-form'>
       <MdClose onClick={close} />
       <Form>
-        <FormGroup className="mb-3" controlId="blockName">
+        <FormGroup className='mb-3' controlId='blockName'>
           <FormLabel>Name</FormLabel>
           <FormControl
             onChange={handleChange}
-            name="blockName"
-            type="text"
-            placeholder="Enter block name"
+            name='blockName'
+            type='text'
+            placeholder='Enter block name'
             value={formFields.blockName}
             isInvalid={isInvalid.blockName}
           />
-          <FormControl.Feedback type="invalid">
+          <FormControl.Feedback type='invalid'>
             Minimum 3 characteres
           </FormControl.Feedback>
         </FormGroup>
-        <FormGroup className="mb-3" controlId="blockThumb">
+        <FormGroup className='mb-3' controlId='blockThumb'>
           <FormLabel>Thumbnail</FormLabel>
           <FormControl
             onChange={handleChange}
-            name="blockThumb"
+            name='blockThumb'
             value={formFields.blockThumb}
-            type="text"
-            placeholder="Enter image URL"
+            type='text'
+            placeholder='Enter image URL'
             isInvalid={isInvalid.blockThumb}
           />
-          <FormControl.Feedback type="invalid">
+          <FormControl.Feedback type='invalid'>
             Invalid url
           </FormControl.Feedback>
-          <FormText className="text-muted">Send a valid image url</FormText>
+          <FormText className='text-muted'>Send a valid image url</FormText>
         </FormGroup>
         <Button
-          type="submit"
-          variant="secondary"
+          type='submit'
+          variant='secondary'
           onSubmit={e => {
             e.preventDefault();
             if (testFields(formFields.blockName, formFields.blockThumb)) {

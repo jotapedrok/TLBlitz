@@ -8,7 +8,7 @@ import { RootState } from './store';
 function App() {
   const { hasAlert, alert } = useSelector((s: RootState) => s.alert);
   return (
-    <div className="App">
+    <div className='App'>
       {hasAlert && (
         <AlertBox
           buttons={alert.buttons || []}

@@ -86,22 +86,22 @@ export default function EditTask({
   };
 
   return (
-    <div className="edit-task">
-      <div className="edit-task-x-btn">
+    <div className='edit-task'>
+      <div className='edit-task-x-btn'>
         <Button
           onClick={e => {
             e.preventDefault();
             // fetchTasks();
             setEditing(false);
           }}
-          variant="outline-secundary"
+          variant='outline-secundary'
         >
           X
         </Button>
       </div>
-      <div className="edit-task-title-container">
+      <div className='edit-task-title-container'>
         {isEditing.title || (
-          <div className="edit-task-title-container-title field">
+          <div className='edit-task-title-container-title field'>
             <h5>{savedFields.title}</h5>
             <Button
               onClick={e => {
@@ -111,23 +111,23 @@ export default function EditTask({
                   title: true,
                 });
               }}
-              type="button"
-              variant="outline-secundary"
-              className="edit-task-title-container-pen-btn"
+              type='button'
+              variant='outline-secundary'
+              className='edit-task-title-container-pen-btn'
             >
               <BiPencil />
             </Button>
           </div>
         )}
         {isEditing.title && (
-          <InputGroup className="editing-field">
+          <InputGroup className='editing-field'>
             <FormControl
               value={inputValues.title}
               onChange={handleChange}
-              name="title"
-              placeholder="Task Title"
-              aria-label="task-title"
-              aria-describedby="basic-addon1"
+              name='title'
+              placeholder='Task Title'
+              aria-label='task-title'
+              aria-describedby='basic-addon1'
             />
             <Button
               onClick={e => {
@@ -141,12 +141,12 @@ export default function EditTask({
                   title: savedFields.title,
                 });
               }}
-              variant="light"
+              variant='light'
             >
               x
             </Button>
             <Button
-              variant="secundary"
+              variant='secundary'
               onClick={e => {
                 e.preventDefault();
                 setSavedFields({
@@ -164,9 +164,9 @@ export default function EditTask({
           </InputGroup>
         )}
       </div>
-      <div className="edit-task-description-container">
+      <div className='edit-task-description-container'>
         {isEditing.description || (
-          <div className="edit-task-description-container-description field">
+          <div className='edit-task-description-container-description field'>
             <h6>{savedFields.description}</h6>
             <Button
               onClick={e => {
@@ -176,22 +176,22 @@ export default function EditTask({
                   description: true,
                 });
               }}
-              type="button"
-              variant="outline-secundary"
-              className="edit-task-description-container-pen-btn"
+              type='button'
+              variant='outline-secundary'
+              className='edit-task-description-container-pen-btn'
             >
               <BiPencil />
             </Button>
           </div>
         )}
         {isEditing.description && (
-          <InputGroup className="editing-field">
+          <InputGroup className='editing-field'>
             <FormControl
               onChange={handleChange}
               value={inputValues.description}
-              name="description"
-              as="textarea"
-              aria-label="description textarea"
+              name='description'
+              as='textarea'
+              aria-label='description textarea'
             />
             <Button
               onClick={e => {
@@ -205,12 +205,12 @@ export default function EditTask({
                   description: savedFields.description,
                 });
               }}
-              variant="light"
+              variant='light'
             >
               x
             </Button>
             <Button
-              variant="secundary"
+              variant='secundary'
               onClick={e => {
                 e.preventDefault();
                 setSavedFields({
@@ -228,9 +228,9 @@ export default function EditTask({
           </InputGroup>
         )}
       </div>
-      <div className="edit-task-content-container">
+      <div className='edit-task-content-container'>
         {isEditing.content || (
-          <div className="edit-task-content-container-content field">
+          <div className='edit-task-content-container-content field'>
             <h6>{savedFields.content}</h6>
             <Button
               onClick={e => {
@@ -240,22 +240,22 @@ export default function EditTask({
                   content: true,
                 });
               }}
-              type="button"
-              variant="outline-secundary"
-              className="edit-task-content-container-pen-btn"
+              type='button'
+              variant='outline-secundary'
+              className='edit-task-content-container-pen-btn'
             >
               <BiPencil />
             </Button>
           </div>
         )}
         {isEditing.content && (
-          <InputGroup className="editing-field">
+          <InputGroup className='editing-field'>
             <FormControl
               onChange={handleChange}
               value={inputValues.content}
-              name="content"
-              as="textarea"
-              aria-label="content textarea"
+              name='content'
+              as='textarea'
+              aria-label='content textarea'
             />
             <Button
               onClick={e => {
@@ -269,12 +269,12 @@ export default function EditTask({
                   content: savedFields.content,
                 });
               }}
-              variant="light"
+              variant='light'
             >
               x
             </Button>
             <Button
-              variant="secundary"
+              variant='secundary'
               onClick={e => {
                 e.preventDefault();
                 setSavedFields({
@@ -292,21 +292,21 @@ export default function EditTask({
           </InputGroup>
         )}
       </div>
-      <div className="edit-task-footer">
+      <div className='edit-task-footer'>
         <Button
           onClick={saveTask}
           disabled={savedFields.title === ''}
-          variant="secondary"
+          variant='secondary'
         >
           Save
         </Button>
-        <div className="edit-task-footer-feedback">
-          <p className="feedback" style={{ color: 'green' }}>
+        <div className='edit-task-footer-feedback'>
+          <p className='feedback' style={{ color: 'green' }}>
             {feedback}
           </p>
         </div>
       </div>
-      <div className="bg" />
+      <div className='bg' />
     </div>
   );
 }

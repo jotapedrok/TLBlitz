@@ -22,7 +22,7 @@ export async function deleteBlock(id: string) {
 export async function removeUser(userId: string, blockId: string) {
   try {
     const response = await api.delete(
-      `/blocks/delete-user/${userId}/${blockId}`,
+      `/blocks/delete-user/${userId}/${blockId}`
     );
     return response.data;
   } catch (e) {

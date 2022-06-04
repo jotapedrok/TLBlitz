@@ -1,16 +1,16 @@
-import React, { Dispatch, SetStateAction } from 'react';
-import { v4 as uuidv4 } from 'uuid';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { Dispatch, SetStateAction } from "react";
+import { v4 as uuidv4 } from "uuid";
+import { useDispatch, useSelector } from "react-redux";
 import {
   activeAlert,
   desativeAlert,
   resetAlert,
   sendAlert,
-} from '../../../store/alert.store';
-import { IAlertProps } from '../../AlertBox';
-import './style.scss';
-import { deleteBlock } from '../../../http/block';
-import { RootState } from '../../../store';
+} from "../../../store/alert.store";
+import { IAlertProps } from "../../AlertBox";
+import "./style.scss";
+import { deleteBlock } from "../../../http/block";
+import { RootState } from "../../../store";
 
 interface props {
   setOptionsOpen: Dispatch<SetStateAction<boolean>>;
@@ -27,7 +27,7 @@ export default function BlockOptions({ setOptionsOpen, id }: props) {
       sendAlert({
         ...stateAlert,
         content: response.message ? response.message : response.error,
-      }),
+      })
     );
     setTimeout(() => {
       dispatch(desativeAlert());
@@ -36,20 +36,20 @@ export default function BlockOptions({ setOptionsOpen, id }: props) {
 
   const onDelete = () => {
     const alert: IAlertProps = {
-      title: 'Delete Block',
-      content: 'Are you sure you want to delete this block?',
+      title: "Delete Block",
+      content: "Are you sure you want to delete this block?",
       hasButton: true,
       buttons: [
         {
           id: uuidv4(),
-          text: 'Delete',
-          variant: 'danger',
+          text: "Delete",
+          variant: "danger",
           onClick: deleteClick,
         },
         {
           id: uuidv4(),
-          text: 'Cancel',
-          variant: 'secundary',
+          text: "Cancel",
+          variant: "secundary",
           onClick: () => {
             dispatch(desativeAlert());
             dispatch(resetAlert());

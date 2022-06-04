@@ -78,66 +78,66 @@ export default function SignInForm() {
 
   return (
     <>
-      <Form className="container" noValidate onSubmit={handleSubmit}>
-        <Row className="mt-3 mb-3">
-          <FormGroup className="mb-3" controlId="username">
+      <Form className='container' noValidate onSubmit={handleSubmit}>
+        <Row className='mt-3 mb-3'>
+          <FormGroup className='mb-3' controlId='username'>
             <FormLabel>Username</FormLabel>
             <FormControl
-              name="username"
+              name='username'
               onChange={handleChange}
               required
-              type="text"
-              placeholder="Username"
+              type='text'
+              placeholder='Username'
               isInvalid={isInvalid.username}
             />
-            <FormControl.Feedback type="invalid">
+            <FormControl.Feedback type='invalid'>
               Choose a valid Username(minimum 3 characteres)
             </FormControl.Feedback>
           </FormGroup>
-          <FormGroup className="mb-3" controlId="email">
+          <FormGroup className='mb-3' controlId='email'>
             <FormLabel>Email</FormLabel>
             <FormControl
-              name="email"
+              name='email'
               onChange={handleChange}
               required
-              type="email"
-              placeholder="Email"
+              type='email'
+              placeholder='Email'
               isInvalid={isInvalid.email}
             />
-            <FormControl.Feedback type="invalid">
+            <FormControl.Feedback type='invalid'>
               Please choose a valid Email
             </FormControl.Feedback>
           </FormGroup>
-          <FormGroup className="mb-3" controlId="password">
+          <FormGroup className='mb-3' controlId='password'>
             <FormLabel>Password</FormLabel>
             <InputGroup hasValidation>
-              <InputGroup.Text id="inputGroupPrepend">
+              <InputGroup.Text id='inputGroupPrepend'>
                 <FiLock />
               </InputGroup.Text>
               <FormControl
-                name="password"
+                name='password'
                 onChange={handleChange}
-                type="password"
-                placeholder="Password"
-                aria-describedby="inputGroupPrepend"
+                type='password'
+                placeholder='Password'
+                aria-describedby='inputGroupPrepend'
                 required
                 isInvalid={isInvalid.password}
               />
-              <FormControl.Feedback type="invalid">
+              <FormControl.Feedback type='invalid'>
                 Please valid Password(minimum 8 characteres)
               </FormControl.Feedback>
             </InputGroup>
           </FormGroup>
         </Row>
-        {/* <FormGroup className="mb-3">
+        {/* <FormGroup className='mb-3'>
           <FormCheck
             required
-            label="Agree to terms and conditions"
-            feedback="You must agree before submitting"
-            feedbackType="invalid"
+            label='Agree to terms and conditions'
+            feedback='You must agree before submitting'
+            feedbackType='invalid'
           />
         </FormGroup> */}
-        <Button className="" type="submit">
+        <Button className='' type='submit'>
           Sign In
         </Button>
         <Button
@@ -145,7 +145,7 @@ export default function SignInForm() {
             e.preventDefault();
             navigate('/login');
           }}
-          variant="secondary"
+          variant='secondary'
         >
           Login
         </Button>

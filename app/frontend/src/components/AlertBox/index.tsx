@@ -22,26 +22,26 @@ export default function AlertBox({
   title,
 }: Partial<IAlertProps>) {
   return (
-    <div className="alert-box">
-      <div className="alert-box-content">
-        <div className="alert-box-content-header">
-          <h5 className="alert-box-content-header-title">{title}</h5>
+    <div className='alert-box'>
+      <div className='alert-box-content'>
+        <div className='alert-box-content-header'>
+          <h5 className='alert-box-content-header-title'>{title}</h5>
           {!hasButton && (
-            <div className="alert-box-content-header-close">
+            <div className='alert-box-content-header-close'>
               <MdClose />
             </div>
           )}
-          <div className="line" />
+          <div className='line' />
         </div>
-        <div className="content-container">
+        <div className='content-container'>
           <p>{content}</p>
         </div>
-        <div className="buttons-conteiner">
+        <div className='buttons-conteiner'>
           {hasButton &&
             buttons &&
             buttons.map(button => (
               <Button
-                type="button"
+                type='button'
                 key={`${button.id}_btn`}
                 onClick={button.onClick}
                 variant={button.variant}
