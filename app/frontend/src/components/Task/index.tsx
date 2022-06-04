@@ -28,6 +28,7 @@ export default function Task({
 }: props) {
   const [open, setOpen] = useState(false);
   const [editing, setEditing] = useState(false);
+  const [editingStatus, setEditingStatus] = useState(false);
   const [status, setStatus] = useState(['pendente', 'em andamento', 'pronto']);
 
   const fetchStatus = async () => {
