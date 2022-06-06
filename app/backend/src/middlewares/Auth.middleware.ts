@@ -14,7 +14,7 @@ export class Auth {
         return res.status(401).json({ error: response.error });
       }
       const { role } = response.data;
-      if (role !== this.role || role === 'admin') {
+      if (role !== this.role || role !== 'admin') {
         return res.status(401).json({ error: 'User unauthorized' });
       }
       next();

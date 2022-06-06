@@ -10,9 +10,9 @@ export class UserValidation {
       const testPassword = this.fieldsValidations.password(password);
       const testUsername = this.fieldsValidations.username(username);
       const testes = [testEmail, testPassword, testUsername];
-      const restult = testes.find((teste) => !teste.test);
-      if (restult) {
-        return res.status(400).json({ error: restult.message });
+      const result = testes.find((teste) => !teste.test);
+      if (result) {
+        return res.status(400).json({ error: result.message });
       }
       next();
     } catch (e) {

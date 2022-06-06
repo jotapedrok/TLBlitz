@@ -10,7 +10,7 @@ import { IPayloadJwt } from '../interfaces/IPayloadJwt.interface';
 export class AuthService implements IAuthService {
   private jwtKey: string;
   constructor(private userModel: IModel) {
-    this.jwtKey = process.env.JWT_KEY || '';
+    this.jwtKey = process.env.JWT_KEY || 'any_key';
   }
 
   private genToken(payload: IUser): string | any {

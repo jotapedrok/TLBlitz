@@ -20,6 +20,7 @@ export class UserService implements IUserService {
 
   async create(user: IUser): Promise<IServiceResponse> {
     const foundEmail = await this.userModel.findOne({ where: { email: user.email } });
+    console.log('foundEmail', foundEmail);
     if (foundEmail) return { error: 'Email already exist' };
     const foundUsername = await this.userModel.findOne({ where: { email: user.username } });
     if (foundUsername) return { error: 'Username already exist' };
