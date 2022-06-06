@@ -27,15 +27,23 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: true,
       },
+      deleted: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+      },
+      deleted_at: {
+        type: Sequelize.DATE,
+        allowNull: true,
+      },
       created_at: {
         allowNull: false,
-        type: Sequelize.DATETIME,
-        defaultValue: Date.now(),
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.fn('NOW'),
       },
       updated_at: {
         allowNull: false,
-        type: Sequelize.DATETIME,
-        defaultValue: Date.now(),
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.fn('NOW'),
       },
     });
   },
