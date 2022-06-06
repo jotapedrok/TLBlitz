@@ -29,18 +29,18 @@ module.exports = {
         allowNull: false,
       },
       deleted_at: {
-        type: Sequelize.DATE,
+        type: Sequelize.DATETIME,
         allowNull: true,
       },
       created_at: {
         allowNull: false,
-        type: Sequelize.DATE,
-        defaultValue: Sequelize.NOW,
+        type: Sequelize.DATETIME,
+        defaultValue: Date.now(),
       },
       updated_at: {
         allowNull: false,
-        type: Sequelize.DATE,
-        defaultValue: Sequelize.NOW,
+        type: Sequelize.DATETIME,
+        defaultValue: Date.now(),
       },
     });
   },
