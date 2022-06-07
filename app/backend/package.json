@@ -5,11 +5,11 @@
   "main": "./build/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node .",
+    "prestart": "npm run build && npm run db:reset",
+    "start": "npm run prestart && node .",
     "dev": "tsnd --transpile-only --respawn --ignore-watch node_modules src/server.ts",
     "build": "/bin/sh tsc_eval.sh",
-    "db:reset": "npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all",
-    "prestart": "npm run build && npm run db:reset"
+    "db:reset": "npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all"
   },
   "author": "Jota Aguiar",
   "license": "ISC",
