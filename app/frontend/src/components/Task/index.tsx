@@ -2,7 +2,7 @@ import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import { Button, Collapse } from 'react-bootstrap';
 import EditTask from '../EditTask';
-// import { changeStatus, getStatus } from '../../http/status';
+import { changeStatus, getStatus } from '../../http/status';
 import './style.scss';
 import { ITask } from '../../interfaces/ITask.interface';
 import { IStatus } from '../../interfaces/IStatus.interface';
@@ -32,25 +32,21 @@ export default function Task({ task: recivedTask, fetchTasks }: props) {
   ]);
 
   const fetchStatus = async () => {
-    // const response = await getStatus();
-    const response = [{ status: 'Pendente', id: '1' },
-      { status: 'Em Andamento', id: '2' },
-      { status: 'Pronto', id: '3' }];
-    // if (!response.error) {
-    //
-    // }
-    setStatus(response);
+    const response = await getStatus();
+    if (!response.error) {
+      setStatus(response);
+    }
   };
 
   const selectStatus = async ({
     status: recivdStatus,
-    // id: statusId,
+    id: statusId,
   }: IStatus) => {
     setTask({
       ...task,
       status: recivdStatus,
     });
-    // await changeStatus(statusId);
+    await changeStatus(statusId);
     setEditingStatus(false);
   };
 

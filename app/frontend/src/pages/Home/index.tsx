@@ -13,8 +13,7 @@ import { IAlertProps } from '../../components/AlertBox';
 import TaskBlock from '../../components/TaskBlock';
 import { createBlock, getBlocks } from '../../http/block';
 import { IBlock } from '../../interfaces/IBlock.interface';
-import { blocksMock } from '../../mocks/blocksMock';
-// import { RootState } from '../../store';
+import { RootState } from '../../store';
 import {
   activeAlert,
   desativeAlert,
@@ -36,7 +35,7 @@ export default function Home() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // const user = useSelector((s: RootState) => s.user.user);
+  const user = useSelector((s: RootState) => s.user.user);
 
   const toggleStateAddForm: MouseEventHandler = (e: MouseEvent) => {
     e.preventDefault();
@@ -79,8 +78,7 @@ export default function Home() {
   };
 
   const fetchBlocks = async () => {
-    // const response = await getBlocks(user.id);
-    const response = { data: blocksMock, error: false };
+    const response = await getBlocks(user.id);
     if (response.error) {
       const alert: IAlertProps = {
         hasButton: true,

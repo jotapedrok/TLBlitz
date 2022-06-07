@@ -93,7 +93,7 @@ export default function EditTask({
         <Button
           onClick={(e) => {
             e.preventDefault();
-            // fetchTasks();
+            fetchTasks();
             setEditing(false);
           }}
           variant="outline-secundary"
