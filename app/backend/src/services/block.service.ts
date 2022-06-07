@@ -86,7 +86,7 @@ export class BlockService implements IBlockService {
     if (!block) return { error: 'Block not found' };
     const user = await this.userModel.findByPk(userId);
     if (!user) return { error: 'User not found' };
-    await this.usersBlocksModel.update({ deleted: true, deletedAt: Sequelize.fn('NOW') }, {
+    await this.usersBlocksModel.update({ deleted: true, deletedAt: new Date() }, {
       where: {
         userId,
         blockId,
