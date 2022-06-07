@@ -14,7 +14,8 @@ export class Auth {
         return res.status(401).json({ error: response.error });
       }
       const { role } = response.data;
-      if (role !== this.role || role !== 'admin') {
+      if (role !== this.role && role !== 'admin') {
+        console.log('here');
         return res.status(401).json({ error: 'User unauthorized' });
       }
       next();
@@ -38,8 +39,8 @@ export class Auth {
             return res.status(401).json({ error: 'User unauthorized' });
           }
         }
+        next();
       }
-      next();
     } catch (e) {
       next(e)
     }

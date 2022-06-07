@@ -49,7 +49,7 @@ const adminRoutes = Router();
 routes.post('/login', loginValidations.login, userController.login);
 routes.post('/users', userValidations.create, userController.create);
 
-routes.use(adminAuth.index, adminRoutes);
+// routes.use(adminAuth.index, adminRoutes);
 routes.use(userAuth.index, userRoutes);
 
 userRoutes.get('/users/:id', userAuth.testId, userController.getById);
