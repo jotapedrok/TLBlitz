@@ -1,7 +1,7 @@
 {
   "name": "tlblitz_backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "back and to TLBlitz app",
   "main": "./build/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
